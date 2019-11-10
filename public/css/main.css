@@ -68,6 +68,12 @@ a {
 p{
     margin-bottom: 0
 }
+#fullname{
+    vertical-align:-2px;
+}
+#logo{
+    height:50px;
+}
 
 .post{
     background-color: #fff;
@@ -118,4 +124,23 @@ p{
 
 .bold{
     font-weight: bold;
+}
+
+.red {
+  color: #f33;
+}
+
+.spacer{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+form#form-contact legend {
+  color: #bbb;
+  border-color: #bbb;
+}
+
+form#form-contact .btn{
+  color: #000;
+  background-color: #ffff19;
 }
