@@ -13,7 +13,6 @@ define('PATHVIEWS', WEBROOT.'views'.DS);//						/views/
 
 #CORE
 
-require(ROOT.'/core/environment.class.php');
 require(ROOT.'/core/controller.class.php');
 require(ROOT.'/core/view.class.php');
 require(ROOT.'/core/model.class.php');
