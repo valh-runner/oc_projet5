@@ -12,14 +12,15 @@ class PostManager extends Manager
     
     public function add(Post $post){
         $req = $this->_db->prepare('
-            INSERT INTO post (title, headnote, content, revision_date, id_user)
-            VALUES (:title, :headnote, :content, :revision_date, :id_user);
+            INSERT INTO post (title, headnote, content, creation_time, revision_time, id_user)
+            VALUES (:title, :headnote, :content, :creation_time, :revision_time, :id_user);
         ');
         $req->execute(array(
             'title' => $post->title(),
             'headnote' => $post->headnote(),
             'content' => $post->content(),
-            'revision_date' => $post->revisionDate(),
+            'creation_time' => $post->creationTime(),
+            'revision_time' => $post->revisionTime(),
             'id_user' => $post->idUser()
         ));
         return $req; //boolean success return
@@ -29,14 +30,15 @@ class PostManager extends Manager
         $req = $this->_db->prepare('
             UPDATE post 
             SET title = :title, headnote = :headnote, content = :content, 
-                revision_date = :revision_date, id_user = :id_user 
+                creation_time = :creation_time, revision_time = :revision_time, id_user = :id_user 
             WHERE id_post = :id_post;
         ');
         $req->execute(array(
             'title' => $post->title(),
             'headnote' => $post->headnote(),
             'content' => $post->content(),
-            'revision_date' => $post->revisionDate(),
+            'creation_time' => $post->creationTime(),
+            'revision_time' => $post->revisionTime(),
             'id_user' => $post->idUser(),
             'id_post' => $post->idPost()
         ));
@@ -61,7 +63,7 @@ class PostManager extends Manager
     }
     
     public function getAll(){
-        $req = $this->_db->query('SELECT * FROM post ORDER BY revision_date DESC;');
+        $req = $this->_db->query('SELECT * FROM post ORDER BY creation_time DESC;');
         $posts = array();
         while($row = $req->fetch()){
             $posts[] = new Post($row);

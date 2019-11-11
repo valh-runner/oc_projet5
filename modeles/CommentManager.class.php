@@ -12,12 +12,13 @@ class CommentManager extends Manager
     
     public function add(Comment $comment){
         $req = $this->_db->prepare('
-            INSERT INTO comment (content, validated, id_post, id_user)
-            VALUES (:content, :validated, :id_post, :id_user);
+            INSERT INTO comment (content, validated, creation_time, id_post, id_user)
+            VALUES (:content, :validated, :creation_time, :id_post, :id_user);
         ');
         $success = $req->execute(array(
             'content' => $comment->content(),
             'validated' => $comment->validated(),
+            'creation_time' => $comment->creationTime(),
             'id_post' => $comment->idPost(),
             'id_user' => $comment->idUser()
         ));
@@ -31,7 +32,7 @@ class CommentManager extends Manager
     public function update(Comment $comment){
         $req = $this->_db->prepare('
             UPDATE comment 
-            SET content = :content, validated = :validated, 
+            SET content = :content, validated = :validated, creation_time = :creation_time, 
                 id_post = :id_post, id_user = :id_user
             WHERE id_comment = :id_comment;
         ');
@@ -39,6 +40,7 @@ class CommentManager extends Manager
             'id_comment' => $comment->idComment(),
             'content' => $comment->content(),
             'validated' => $comment->validated(),
+            'creation_time' => $comment->creationTime(),
             'id_post' => $comment->idPost(),
             'id_user' => $comment->idUser()
         ));
@@ -68,10 +70,14 @@ class CommentManager extends Manager
     }
     
     public function getAllValidatedForPost($idPost){
-        $req = $this->_db->prepare('SELECT * FROM comment WHERE id_post = :id_post AND validated = 1;');
+        $req = $this->_db->prepare('
+            SELECT * FROM comment 
+            WHERE id_post = :id_post 
+            AND validated = 1 
+            ORDER BY creation_time DESC;
+        ');
         $req->bindValue('id_post', $idPost);
         $req->execute();
-        //TODO: ajouter ORDER BY creation_date DESC;
         $comments = array();
         while($row = $req->fetch()){
             $comments[] = new Comment($row);
@@ -81,10 +87,14 @@ class CommentManager extends Manager
     }
     
     public function getAllWaitingForPost($idPost){
-        $req = $this->_db->prepare('SELECT * FROM comment WHERE id_post = :id_post AND validated = 0;');
+        $req = $this->_db->prepare('
+            SELECT * FROM comment 
+            WHERE id_post = :id_post 
+            AND validated = 0 
+            ORDER BY creation_time DESC;
+        ');
         $req->bindValue('id_post', $idPost);
         $req->execute();
-        //TODO: ajouter ORDER BY creation_date DESC;
         $comments = array();
         while($row = $req->fetch()){
             $comments[] = new Comment($row);

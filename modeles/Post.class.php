@@ -6,7 +6,8 @@ class Post
             $_title,
             $_headnote,
             $_content,
-            $_revisionDate,
+            $_creationTime,
+            $_revisionTime,
             $_idUser;
     
     public function __construct(array $datas){
@@ -25,8 +26,11 @@ class Post
     public function content(){
         return $this->_content;
     }
-    public function revisionDate(){
-        return $this->_revisionDate;
+    public function creationTime(){
+        return $this->_creationTime;
+    }
+    public function revisionTime(){
+        return $this->_revisionTime;
     }
     public function idUser(){
         return $this->_idUser;
@@ -44,8 +48,11 @@ class Post
     public function setContent($content){
         $this->_content = $content;
     }
-    public function setRevisionDate($revisionDate){
-        $this->_revisionDate = $revisionDate;
+    public function setCreationTime($creationTime){
+        $this->_creationTime = $creationTime;
+    }
+    public function setRevisionTime($revisionTime){
+        $this->_revisionTime = $revisionTime;
     }
     public function setIdUser($idUser){
         $this->_idUser = $idUser;

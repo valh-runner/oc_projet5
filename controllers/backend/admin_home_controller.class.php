@@ -52,7 +52,8 @@ class Admin_home_controller extends Controller{
                     'title' => $fields['title'],
                     'headnote' => $fields['headnote'],
                     'content' => $fields['content'],
-                    'revisionDate' => date('Y-m-d'),
+                    'creationTime' => date('Y-m-d H:i:s'),
+                    'revisionTime' => date('Y-m-d H:i:s'),
                     'idUser' => $_SESSION['userId']
                 );
                 $post = new Post($datas);
@@ -101,7 +102,7 @@ class Admin_home_controller extends Controller{
                 $updatedPost->setTitle($fields['title']);
                 $updatedPost->setHeadnote($fields['headnote']);
                 $updatedPost->setContent($fields['content']);
-                $updatedPost->setRevisionDate(date('Y-m-d'));
+                $updatedPost->setRevisionTime(date('Y-m-d H:i:s'));
                 $updatedPost->setIdUser($_SESSION['userId']);
                 
                 $success = $postManager->update($updatedPost); //update in database

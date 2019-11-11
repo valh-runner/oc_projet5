@@ -46,6 +46,7 @@ class Blog_controller extends Controller{
                     $datas = array(
                         'content' => $fields['comment'],
                         'validated' => 0,
+                        'creation_time' => date('Y-m-d H:i:s'),
                         'idPost' => $id,
                         'idUser' => $_SESSION['userId']
                     );

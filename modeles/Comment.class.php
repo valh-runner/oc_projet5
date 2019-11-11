@@ -5,6 +5,7 @@ class Comment
     private $_idComment,
             $_content,
             $_validated,
+            $_creationTime,
             $_idPost,
             $_idUser;
     
@@ -21,6 +22,9 @@ class Comment
     public function validated(){
         return $this->_validated;
     }
+    public function creationTime(){
+        return $this->_creationTime;
+    }
     public function idPost(){
         return $this->_idPost;
     }
@@ -36,6 +40,9 @@ class Comment
     }
     public function setValidated($validated){
         $this->_validated = $validated;
+    }
+    public function setCreationTime($creationTime){
+        $this->_creationTime = $creationTime;
     }
     public function setIdPost($idPost){
         $this->_idPost = $idPost;
