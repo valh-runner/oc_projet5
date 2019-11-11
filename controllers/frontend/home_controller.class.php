@@ -4,7 +4,7 @@ class Home_controller extends Controller{
 	function index(){
         $feedback = '';
         //if form submited
-        if(!empty($_POST)){
+        if(!empty($this->safePost)){
             
             $fieldNames = array('email', 'password');
             $fields = array();
@@ -12,19 +12,18 @@ class Home_controller extends Controller{
             $pass = true;
             //pacify and check user inputs
             foreach($fieldNames as $fieldName ){
-                $fieldData = htmlentities(trim($_POST[$fieldName]));
-                if(empty($fieldData)){
+                if(empty($this->safePost[$fieldName])){
                     $fields[$fieldName] = '';
                     $pass = false;
                 }else{
-                    $fields[$fieldName] = $fieldData;
+                    $fields[$fieldName] = $this->safePost[$fieldName];
                 }
             }
             
             if(!$pass){
                 $feedback = 'Un champ est manquant!';
             }else{
-                //TODO: Check inputs format
+                //TODO: Check email format
                 
                 $userManager = new UserManager();
                 $user = $userManager->getByEmail($fields['email']);

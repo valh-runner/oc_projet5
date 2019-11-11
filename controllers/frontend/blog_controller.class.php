@@ -22,7 +22,7 @@ class Blog_controller extends Controller{
         //if user connected
         if(isset($_SESSION['connected'])){
             //if form submited
-            if(!empty($_POST)){
+            if(!empty($this->safePost)){
                 
                 $fieldNames = array('comment');
                 $fields = array();
@@ -30,21 +30,18 @@ class Blog_controller extends Controller{
                 $pass = true;
                 //pacify and check user inputs
                 foreach($fieldNames as $fieldName){
-                    $fieldData = htmlentities(trim($_POST[$fieldName]));
-                    //TODO: check if each $_POST variable exists
-                    if(empty($fieldData)){
+                    //if post variable exists
+                    if(empty($this->safePost[$fieldName])){
                         $fields[$fieldName] = '';
                         $pass = false;
                     }else{
-                        $fields[$fieldName] = $fieldData;
+                        $fields[$fieldName] = $this->safePost[$fieldName];
                     }
                 }
                 
                 if(!$pass){
                     $feedback = 'Un champ est manquant!';
                 }else{
-                    //TODO: Check inputs format
-                    
                     //add comment in database
                     $datas = array(
                         'content' => $fields['comment'],
@@ -78,7 +75,7 @@ class Blog_controller extends Controller{
         $this->set('comments', $comments);
         
         //retrieve array of each users who commented the post, indexed by id_user
-        $usersWhoCommented = $userManager->getAllWhoCommentedPost($post->idPost());
+        $usersWhoCommented = $userManager->getAllWhoDidValidatedCommentForPost($post->idPost());
         $this->set('usersWhoCommented', $usersWhoCommented);
     }
 }

@@ -3,8 +3,11 @@ class Controller{
 	
 	private $vars = array();
 	public $noView = false;
+	public $safePost = array();
 	
 	function __construct($urlAction, $urlParams){
+        $this->setSafePost();
+        
         $deducedMethodName = lcfirst(implode(array_map('ucfirst', explode('_', $urlAction))));
 		call_user_func_array(array($this, $deducedMethodName), $urlParams); //call of controller object method
         $this->callView($urlAction);
@@ -32,5 +35,21 @@ class Controller{
 		header('Location: '.URLROOT.$urlPage.'/'.$urlAction);
 		exit();
 	}
+    
+    static function setSafePost(){
+        //if form submited
+        if(!empty($_POST)){
+            //check POST fields
+            foreach($_POST as $key => $field){
+                $key = trim(htmlentities($key)); //pacify post value name
+                //if field filled
+                if(!empty($field)){
+                    $this->safePost[$key] = trim(htmlentities($_POST[$field])); //set pacified user input
+                }else{
+                    $this->safePost[$key] = ''; //set as empty
+                }
+            }
+        }
+    }
 	
 }

@@ -54,7 +54,7 @@ if(!empty($url['page'])){
         //if page error404
         if($url['page'] == 'common' && $url['action'] == 'error404'){
             //Controller::renderStatic('error404');
-            echo header('HTTP/1.1 404 Not Found'); //TODO: check presence of header 404 in response
+            echo header('HTTP/1.1 404 Not Found'); //set header 404 in response
             $oView = new VIEW($url['page'], $url['action']); //view instanciation
             exit();
         }
@@ -87,7 +87,6 @@ if(!empty($url['page'])){
         
         //if not access granted
         if(!$access){
-            //TODO: create a common action 'no permission to access' in place of error404
             $url = array('page'=>'common', 'action'=>'access_denied', 'params'=>array());
             Controller::redirect($url);
         }else{

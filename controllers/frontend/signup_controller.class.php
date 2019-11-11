@@ -8,7 +8,7 @@ class Signup_controller extends Controller{
         
         $feedback = '';
         
-        if(!empty($_POST)){
+        if(!empty($this->safePost)){
             
             $fieldNames = array('email', 'username', 'password');
             $fields = array();
@@ -16,19 +16,18 @@ class Signup_controller extends Controller{
             $pass = true;
             //pacify and check user inputs
             foreach($fieldNames as $fieldName ){
-                $fieldData = htmlentities(trim($_POST[$fieldName]));
-                if(empty($fieldData)){
+                if(empty($this->safePost[$fieldName])){
                     $fields[$fieldName] = '';
                     $pass = false;
                 }else{
-                    $fields[$fieldName] = $fieldData;
+                    $fields[$fieldName] = $this->safePost[$fieldName];
                 }
             }
             
             if(!$pass){
                 $feedback = 'Un champ est manquant!';
             }else{
-                //TODO: Check inputs format
+                //TODO: Check email format
                 
                 $passwordHashed = password_hash($fields['password'], PASSWORD_BCRYPT);
                 

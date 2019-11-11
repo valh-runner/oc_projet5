@@ -27,28 +27,26 @@ class Admin_home_controller extends Controller{
         
         $feedback = '';
         //if form submited
-        if(!empty($_POST)){
+        if(!empty($this->safePost)){
             
             $fieldNames = array('title', 'headnote', 'content');
             $fields = array();
             
             $pass = true;
-            //pacify and check user inputs
+            //check user inputs
             foreach($fieldNames as $fieldName){
-                $fieldData = htmlentities(trim($_POST[$fieldName]));
-                if(empty($fieldData)){
-                    $fields[$fieldName] = '';
-                    $pass = false;
+                //if field is filled
+                if(!empty($this->safePost[$fieldName])){
+                    $fields[$fieldName] = $this->safePost[$fieldName]; //set pacified user input
                 }else{
-                    $fields[$fieldName] = $fieldData;
+                    $fields[$fieldName] = ''; //set as empty
+                    $pass = false;
                 }
             }
             
             if(!$pass){
                 $feedback = 'Un champ est manquant!';
             }else{
-                //TODO: Check inputs format
-                
                 //add post in database
                 $datas = array(
                     'title' => $fields['title'],
@@ -78,28 +76,26 @@ class Admin_home_controller extends Controller{
         
         $feedback = '';
         //if form submited
-        if(!empty($_POST)){
+        if(!empty($this->safePost)){
             
             $fieldNames = array('title', 'headnote', 'content');
             $fields = array();
             
             $pass = true;
-            //pacify and check user inputs
+            //check user inputs
             foreach($fieldNames as $fieldName){
-                $fieldData = htmlentities(trim($_POST[$fieldName]));
-                if(empty($fieldData)){
-                    $fields[$fieldName] = '';
-                    $pass = false;
+                //if field is filled
+                if(!empty($this->safePost[$fieldName])){
+                    $fields[$fieldName] = $this->safePost[$fieldName]; //set pacified user input
                 }else{
-                    $fields[$fieldName] = $fieldData;
+                    $fields[$fieldName] = ''; //set as empty
+                    $pass = false;
                 }
             }
             
             if(!$pass){
                 $feedback = 'Un champ est manquant!';
             }else{
-                //TODO: Check inputs format
-                
                 //make updates on a copy of the post
                 $updatedPost = clone $post;
                 $updatedPost->setTitle($fields['title']);
@@ -135,15 +131,16 @@ class Admin_home_controller extends Controller{
         $commentManager = new CommentManager();
         
         //if form submited
-        if(!empty($_POST)){
-            //TODO: ckeck if isset id_comment
-            
-            //retrieve concerned comment
-            $comment = $commentManager->get($_POST['id_comment']);
-            
-            if(isset($_POST['action_unvalidate'])){
-                $comment->setValidated(0);
-                $commentManager->update($comment);
+        if(!empty($this->safePost)){
+            //if isset id_comment
+            if(isset($this->safePost['id_comment'])){
+                //retrieve concerned comment
+                $comment = $commentManager->get($this->safePost['id_comment']);
+                //if action is unvalidate
+                if(isset($this->safePost['action_unvalidate'])){
+                    $comment->setValidated(0);
+                    $commentManager->update($comment);
+                }
             }
         }
         
@@ -153,7 +150,7 @@ class Admin_home_controller extends Controller{
         
         //retrieve array of each users who commented the post, indexed by id_user
         $userManager = new UserManager();
-        $usersWhoCommented = $userManager->getAllWhoCommentedPost($idPost); //TODO: just retrieve for validated comments
+        $usersWhoCommented = $userManager->getAllWhoDidValidatedCommentForPost($idPost);
         $this->set('usersWhoCommented', $usersWhoCommented);
     }
     
@@ -161,18 +158,19 @@ class Admin_home_controller extends Controller{
         $commentManager = new CommentManager();
         
         //if form submited
-        if(!empty($_POST)){
-            //TODO: ckeck if isset id_comment
-            
-            //retrieve concerned comment
-            $comment = $commentManager->get($_POST['id_comment']);
-            
-            if(isset($_POST['action_validate'])){
-                $comment->setValidated(1);
-                $commentManager->update($comment);
-            }
-            elseif(isset($_POST['action_delete'])){
-                $commentManager->del($comment->idComment());
+        if(!empty($this->safePost)){
+            //if isset id_comment
+            if(isset($this->safePost['id_comment'])){
+                //retrieve concerned comment
+                $comment = $commentManager->get($this->safePost['id_comment']);
+                
+                if(isset($this->safePost['action_validate'])){ //if action is validate
+                    $comment->setValidated(1);
+                    $commentManager->update($comment);
+                }
+                elseif(isset($this->safePost['action_delete'])){ //if action is delete
+                    $commentManager->del($comment->idComment());
+                }
             }
         }
         
@@ -182,7 +180,7 @@ class Admin_home_controller extends Controller{
         
         //retrieve array of each users who commented the post, indexed by id_user
         $userManager = new UserManager();
-        $usersWhoCommented = $userManager->getAllWhoCommentedPost($idPost); //TODO: just retrieve for waiting comments
+        $usersWhoCommented = $userManager->getAllWhoDidWaitingCommentForPost($idPost);
         $this->set('usersWhoCommented', $usersWhoCommented);
     }
     
@@ -190,19 +188,20 @@ class Admin_home_controller extends Controller{
         $userManager = new UserManager();
         
         //if form submited
-        if(!empty($_POST)){
-            //TODO: ckeck if isset id_user
-            
-            //retrieve concerned user
-            $user = $userManager->get($_POST['id_user']);
-            
-            if(isset($_POST['action_grant'])){
-                $user->setAdminGranted(1);
-                $userManager->update($user);
-            }
-            elseif(isset($_POST['action_revoke'])){
-                $user->setAdminGranted(0);
-                $userManager->update($user);
+        if(!empty($this->safePost)){
+            //if isset id_user
+            if(isset($this->safePost['id_user'])){
+                //retrieve concerned user
+                $user = $userManager->get($this->safePost['id_user']);
+                
+                if(isset($this->safePost['action_grant'])){ //if action is grant
+                    $user->setAdminGranted(1);
+                    $userManager->update($user);
+                }
+                elseif(isset($this->safePost['action_revoke'])){ //if action is revoke
+                    $user->setAdminGranted(0);
+                    $userManager->update($user);
+                }
             }
         }
         

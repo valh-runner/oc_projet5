@@ -66,18 +66,38 @@ class UserManager extends Manager
         return $users;
     }
     
-    public function getAllWhoCommentedPost($idPost){
+    public function getAllWhoDidValidatedCommentForPost($idPost){
         //array of each users who commented the post, indexed by id_user
         $req = $this->_db->prepare('
             SELECT u.* 
             FROM user u, comment c 
-            WHERE u.id_user = c.id_user
-            AND c.id_post = :id_post;
+            WHERE u.id_user = c.id_user 
+            AND c.id_post = :id_post 
+            AND c.validated = 1 
+            GROUP BY u.id_user;
         ');
         $req->bindValue('id_post', $idPost);
         $req->execute();
-        //TODO: ajouter AND c.validated = 1;
-        //TODO: ajouter GROUP BY (ou DISTINCT) pour eviter d'avoir plusieurs fois le mm user
+        $usersWhoCommented = array();
+        while($row = $req->fetch()){
+            $usersWhoCommented[$row['id_user']] = new User($row);
+        }
+        $req->closeCursor();
+        return $usersWhoCommented;
+    }
+    
+    public function getAllWhoDidWaitingCommentForPost($idPost){
+        //array of each users who commented the post, indexed by id_user
+        $req = $this->_db->prepare('
+            SELECT u.* 
+            FROM user u, comment c 
+            WHERE u.id_user = c.id_user 
+            AND c.id_post = :id_post 
+            AND c.validated = 0 
+            GROUP BY u.id_user;
+        ');
+        $req->bindValue('id_post', $idPost);
+        $req->execute();
         $usersWhoCommented = array();
         while($row = $req->fetch()){
             $usersWhoCommented[$row['id_user']] = new User($row);
