@@ -2,26 +2,34 @@
 
 <a href='<?php $this->url('blog', 'index'); ?>'>Retour</a>
 
-<p class="text-right">Créé le <?= $newDate = date('d/m/Y', strtotime($post->revisionTime())); ?></p>
-<p class="text-right">Mis à jour le <?= $newDate = date('d/m/Y', strtotime($post->revisionTime())); ?></p>
+<p class="text-right">Créé le <?= date('d/m/Y', strtotime($post->revisionTime())); ?></p>
+<p class="text-right">Mis à jour le <?= date('d/m/Y', strtotime($post->revisionTime())); ?></p>
 <p class="text-right">Auteur : <?= $user->username(); ?></p>
 <h2 class="col-xs-12 text-center" id="title"><?= $post->title(); ?></h2>
 <h3><?= $post->headnote(); ?></h3>
 <p><?= $post->content(); ?></p>
----
 
+<hr class="spacer">
+
+<h3>Formulaire ajout commentaire</h3>
 <?php if(isset($_SESSION['connected'])): ?>
-    <p>Formulaire ajout commentaire (soumis pour validation)</p>
     <form method="post" action="/blog/post/<?= $post->idPost(); ?>">
-        <p>Votre commentaire*: <textarea name="comment"/></textarea>
-        <p><input type="submit"/></p>
+        <div class="form-group">
+            <label for "comment">Votre commentaire<span class="red">*</span> : </label>
+            <p><textarea name="comment"/></textarea></p>
+        </div>
+        <button class="btn pull-right">Envoyer</button>
+        <div class="clearfix"></div>
+        <div class="red">* Champs obligatoires</div>
     </form>
     <?= $feedback ?>
 <?php else: ?>
     <p>Connectez-vous pour déposer un commentaire</p>
 <?php endif; ?>
----
-<p>Commentaires</p>
+
+<hr class="spacer">
+
+<h3>Commentaires</h3>
 <?php foreach($comments as $comment): ?>
 <div class="col-xs-12 comment">
     <p class="col-xs-12"><?= nl2br($comment->content()); ?></p>

@@ -1,17 +1,19 @@
 <?php $title = 'accueil'; ?>
 
-<p>Bienvenu sur mon site perso d'actualités IT</p>
+<p class="text-center">Bienvenu sur mon site perso d'actualités IT</p>
 
 <h3>Qui suis je?</h3>
-<div class="col-xs-1 spacer">
-    <img id="logo" src="/public/img/logo.png"></img>
-</div>
-<div class="col-xs-11 spacer">
-    <img id="fullname" src="/public/img/fullname.png"></img>
-    <p>Make your wishes functionnal</p>
-</div>
-<div class="col-xs-12 spacer">
-    <p><a href="/public/docs/cv.pdf" target="_blank">Voir mon CV</a></p>
+<div class="row">
+    <div class="col-xs-1 spacer">
+        <img id="logo" src="/public/img/logo.png"></img>
+    </div>
+    <div class="col-xs-11 spacer">
+        <img id="fullname" src="/public/img/fullname.png"></img>
+        <p>Make your wishes functionnal</p>
+    </div>
+    <div class="col-xs-12 spacer">
+        <p><a href="/public/docs/cv.pdf" target="_blank">Voir mon CV</a></p>
+    </div>
 </div>
 <h3>Réseaux sociaux</h3>
 <div class="col-xs-12 spacer">

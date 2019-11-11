@@ -45,9 +45,12 @@ body {
 }
 
 #content {
+  background-color: #ccc;
+}
+#content-in {
   background-color: #eee;
-  padding-top: 65px;
-  padding-bottom: 150px;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
 #title {
@@ -58,7 +61,6 @@ body {
 footer {
   font-style: italic;
   background-color: #777;
-  margin-bottom: 30px;
 }
 
 a {
@@ -135,12 +137,20 @@ p{
     margin-bottom: 20px;
 }
 
-form#form-contact legend {
+form legend {
   color: #bbb;
   border-color: #bbb;
 }
 
-form#form-contact .btn{
+form .btn{
   color: #000;
   background-color: #ffff19;
+}
+
+td{
+    border: 1px solid #555;
+    padding: 2px 4px;
+}
+th{
+    padding: 2px 4px;
 }

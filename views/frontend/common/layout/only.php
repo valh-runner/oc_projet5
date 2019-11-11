@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Blog personnel traitant l'actualité IT">
+    <meta name="description" content="Blog personnel traitant l'actualité">
     <meta name="robots" content="noindex">
     
     <title>ActuBlog - <?= $title ?></title>
@@ -32,7 +32,7 @@
     <div class="container">
       
       <header class="row">
-        <div class="col-xs-12 text-center" id="banner"><a href="index.shtml">IT-actublog</a></div>
+        <div class="col-xs-12 text-center" id="banner"><a href="index.shtml">actu&lt;Blog&#47;&gt;</a></div>
         
         <div class="col-xs-12" id="navigation">
           <div class="navbar navbar-default" role="navigation">
@@ -66,7 +66,7 @@
       </header>
       
       <div class="row" id="content">
-        <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+        <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8" id="content-in">
             <?= $content_for_layout ?>
         </div>
       </div>
@@ -74,12 +74,12 @@
       <footer class="row">
         <div class="col-xs-12">
             <div class="pull-left"><a href="<?= $this->url('admin_home', 'index') ?>">administration blog</a></div>
-            <div class="pull-right">IT-actublog - Tous droits réservés</div>
+            <div class="pull-right">actublog - Tous droits réservés</div>
         </div>
       </footer>
     </div>
     
-    <script src="js/jquery-1.12.4.js"></script> <!-- necessary for bootstrap javascript plugins -->
-    <script src="js/bootstrap.js"></script> <!-- bootstrap javascript plugins -->
+    <script src="/public/js/jquery-1.12.4.js"></script> <!-- necessary for bootstrap javascript plugins -->
+    <script src="/public/js/bootstrap.js"></script> <!-- bootstrap javascript plugins -->
   </body>
 </html>

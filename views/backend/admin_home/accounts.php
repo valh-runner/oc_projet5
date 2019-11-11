@@ -7,7 +7,7 @@
 
 <table>
 <tr>
-    <td>id</td><td>username</td><td>e-mail</td><td>date d'inscription</td><td>admin</td><td>Gestion admin</td>
+    <th>id</th><th>username</th><th>e-mail</th><th>date d'inscription</th><th>admin</th><th>Gestion admin</th>
 <?php foreach($users as $user): ?>
 <tr>
     <td><?= $user->idUser(); ?></td>

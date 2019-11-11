@@ -9,5 +9,7 @@
 <h3><?= $post->title(); ?></h3>
 <p>Châpo: <?= $post->headnote(); ?></p>
 <p>Contenu: <?= $post->content(); ?></p>
+<hr class="spacer">
 <p>Auteur: <?= $user->username(); ?></p>
-<p>Date dernière mise à jour: <?= $post->revisionTime(); ?></p>
+<hr class="spacer">
+<p>Date dernière mise à jour: <?= date('d/m/Y', strtotime($post->revisionTime())); ?></p>

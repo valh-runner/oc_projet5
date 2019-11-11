@@ -3,11 +3,22 @@
 <h2>admin - Modification d'un post</h2>
 <hr>
 <a href='<?php $this->url('admin_home', 'index'); ?>'>Retour</a>
-
+<hr class="spacer">
 <form method="post" action="/admin_home/update_post/<?= $post->idPost(); ?>">
-    <p>Titre*: <input type="text" name="title" value="<?= $post->title(); ?>"/></p>
-    <p>Chapô*: <input type="text" name="headnote" value="<?= $post->headnote(); ?>"/></p>
-    <p>Contenu*: <textarea name="content"/><?= $post->content(); ?></textarea>
-    <p><input type="submit"/></p>
+    <div class="form-group">
+        <label for "title">Titre<span class="red">*</span> : </label>
+        <p><input type="text" name="title" value="<?= $post->title(); ?>"/></p>
+    </div>
+    <div class="form-group">
+        <label for "headnote">Chapô<span class="red">*</span> : </label>
+        <p><input type="text" name="headnote" value="<?= $post->headnote(); ?>"/></p>
+    </div>
+    <div class="form-group">
+        <label for "content">Contenu<span class="red">*</span> : </label>
+        <p><textarea name="content"/><?= $post->content(); ?></textarea>
+    </div>
+    <button class="btn pull-right">Envoyer</button>
+    <div class="clearfix"></div>
+    <div class="red">* Champs obligatoires</div>
 </form>
 <?= $feedback ?>
