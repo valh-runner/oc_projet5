@@ -10,4 +10,4 @@
 <p>Châpo: <?= $post->headnote(); ?></p>
 <p>Contenu: <?= $post->content(); ?></p>
 <p>Auteur: <?= $user->username(); ?></p>
-<p>Date dernière mise à jour: <?= $post->revisionDate(); ?></p>
+<p>Date dernière mise à jour: <?= $post->revisionTime(); ?></p>

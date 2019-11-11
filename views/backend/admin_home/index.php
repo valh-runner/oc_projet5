@@ -10,7 +10,7 @@
 <div>
     <h3><?= $post->title(); ?></h3>
     <p>Châpo: <?= $post->headnote(); ?></p>
-    <p>Date dernière modification: <?= $post->revisionDate(); ?></p>
+    <p>Date dernière modification: <?= $post->revisionTime(); ?></p>
     <p>
         <a href='<?php $this->url('admin_home', 'post', array($post->idPost())); ?>'>Voir l'article</a> - 
         <a href='<?php $this->url('admin_home', 'validated_comments', array($post->idPost())); ?>'>Voir les commentaires validés</a> - 

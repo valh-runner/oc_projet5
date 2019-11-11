@@ -2,7 +2,8 @@
 
 <a href='<?php $this->url('blog', 'index'); ?>'>Retour</a>
 
-<p class="text-right">Mis à jour le : <?= $post->revisionDate(); ?></p>
+<p class="text-right">Créé le <?= $newDate = date('d/m/Y', strtotime($post->revisionTime())); ?></p>
+<p class="text-right">Mis à jour le <?= $newDate = date('d/m/Y', strtotime($post->revisionTime())); ?></p>
 <p class="text-right">Auteur : <?= $user->username(); ?></p>
 <h2 class="col-xs-12 text-center" id="title"><?= $post->title(); ?></h2>
 <h3><?= $post->headnote(); ?></h3>
