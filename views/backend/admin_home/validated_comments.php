@@ -8,7 +8,7 @@
 <?php foreach($comments as $comment): ?>
 <div>
     <p>Auteur du commentaire: <?= $usersWhoCommented[$comment->idUser()]->username(); ?></p>
-    <p><?= $comment->content(); //TODO: nblr() ??? ?></p>
+    <p><?= nl2br($comment->content()); ?></p>
     <p>Date du commentaire: ???</p>
     
     <form method="post" action="/admin_home/validated_comments/<?= $comment->idPost(); ?>">

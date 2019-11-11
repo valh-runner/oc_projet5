@@ -27,26 +27,29 @@ class Signup_controller extends Controller{
             if(!$pass){
                 $feedback = 'Un champ est manquant!';
             }else{
-                //TODO: Check email format
-                
-                $passwordHashed = password_hash($fields['password'], PASSWORD_BCRYPT);
-                
-                $datas = array(
-                    'username' => $fields['username'],
-                    'email' => $fields['email'],
-                    'passwordHash' => $passwordHashed,
-                    'registerDate' => date('Y-m-d'),
-                    'adminGranted' => false
-                );
-                
-                $user = new User($datas);
-                $userManager = new UserManager();
-                $success = $userManager->add($user);
-                
-                if($success){
-                    Controller::redirectSmart('signup', 'confirm');
+                //if not email format
+                if(!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)){
+                    $feedback = 'format E-mail invalide';
                 }else{
-                    $feedback = 'Une erreur s\'est produite';
+                    $passwordHashed = password_hash($fields['password'], PASSWORD_BCRYPT);
+                    
+                    $datas = array(
+                        'username' => $fields['username'],
+                        'email' => $fields['email'],
+                        'passwordHash' => $passwordHashed,
+                        'registerDate' => date('Y-m-d'),
+                        'adminGranted' => false
+                    );
+                    
+                    $user = new User($datas);
+                    $userManager = new UserManager();
+                    $success = $userManager->add($user);
+                    
+                    if($success){
+                        Controller::redirectSmart('signup', 'confirm');
+                    }else{
+                        $feedback = 'Une erreur s\'est produite';
+                    }
                 }
             }
         }

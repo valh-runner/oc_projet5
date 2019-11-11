@@ -24,7 +24,7 @@
 <p>Commentaires</p>
 <?php foreach($comments as $comment): ?>
 <div class="col-xs-12 comment">
-    <p class="col-xs-12"><?= $comment->content(); //TODO: nblr() ??? ?></p>
+    <p class="col-xs-12"><?= nl2br($comment->content()); ?></p>
     <p class="col-xs-12 text-right comment-source">
         par <span class="bold"><?= $usersWhoCommented[$comment->idUser()]->username(); ?></span> - le ??? (date commentaire)
     </p>

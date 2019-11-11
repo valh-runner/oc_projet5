@@ -3,10 +3,10 @@ class Home_controller extends Controller{
 	
 	function index(){
         $feedback = '';
-        //if form submited
+        //if form submited for contact
         if(!empty($this->safePost)){
             
-            $fieldNames = array('email', 'password');
+            $fieldNames = array('name', 'firstname', 'email', 'message');
             $fields = array();
             
             $pass = true;
@@ -23,27 +23,15 @@ class Home_controller extends Controller{
             if(!$pass){
                 $feedback = 'Un champ est manquant!';
             }else{
-                //TODO: Check email format
-                
-                $userManager = new UserManager();
-                $user = $userManager->getByEmail($fields['email']);
-                
-                //if user not found
-                if($user == false){
-                    $feedback = 'E-mail incorrect';
+                //if not email format
+                if(!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)){
+                    $feedback = 'format E-mail invalide';
                 }else{
-                    $success = password_verify($fields['password'], $user->passwordHash());
-                    
-                    //if password not valid
-                    if(!$success){
-                        $feedback = 'Mot de passe incorrect';
-                    }else{
-                        $_SESSION['connected'] = true;
-                        $_SESSION['userId'] = $user->idUser();
-                        //if admin granted account
-                        if($user->adminGranted()){$_SESSION['admin'] = true;}
-                        Controller::redirectSmart('home', 'index');
-                    }
+                    //send email
+                    $subject = 'contact via IT actuBlog from '.$fields['name'].' '.$fields['firstname'];
+                    $headers = 'From: '.$fields['email'];
+                    $content = nl2br($fields['message']);
+                    mail('admin@1and1.com', $subject, $content, $headers);
                 }
             }
         }

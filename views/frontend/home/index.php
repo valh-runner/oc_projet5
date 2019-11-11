@@ -2,8 +2,6 @@
 
 <p>Bienvenu sur mon site perso d'actualités IT</p>
 
-
-
 <h3>Qui suis je?</h3>
 <div class="col-xs-1 spacer">
     <img id="logo" src="/public/img/logo.png"></img>

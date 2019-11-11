@@ -26,26 +26,29 @@ class Login_controller extends Controller{
             if(!$pass){
                 $feedback = 'Un champ est manquant!';
             }else{
-                //TODO: Check email format
-                
-                $userManager = new UserManager();
-                $user = $userManager->getByEmail($fields['email']);
-                
-                //if user not found
-                if($user == false){
-                    $feedback = 'E-mail incorrect';
+                //if not email format
+                if(!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)){
+                    $feedback = 'format E-mail invalide';
                 }else{
-                    $success = password_verify($fields['password'], $user->passwordHash());
+                    $userManager = new UserManager();
+                    $user = $userManager->getByEmail($fields['email']);
                     
-                    //if password not valid
-                    if(!$success){
-                        $feedback = 'Mot de passe incorrect';
+                    //if user not found
+                    if($user == false){
+                        $feedback = 'E-mail incorrect';
                     }else{
-                        $_SESSION['connected'] = true;
-                        $_SESSION['userId'] = $user->idUser();
-                        //if admin granted account
-                        if($user->adminGranted()){$_SESSION['admin'] = true;}
-                        Controller::redirectSmart('home', 'index');
+                        $success = password_verify($fields['password'], $user->passwordHash());
+                        
+                        //if password not valid
+                        if(!$success){
+                            $feedback = 'Mot de passe incorrect';
+                        }else{
+                            $_SESSION['connected'] = true;
+                            $_SESSION['userId'] = $user->idUser();
+                            //if admin granted account
+                            if($user->adminGranted()){$_SESSION['admin'] = true;}
+                            Controller::redirectSmart('home', 'index');
+                        }
                     }
                 }
             }

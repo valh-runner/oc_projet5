@@ -36,7 +36,7 @@ class Controller{
 		exit();
 	}
     
-    static function setSafePost(){
+    function setSafePost(){
         //if form submited
         if(!empty($_POST)){
             //check POST fields
@@ -44,7 +44,7 @@ class Controller{
                 $key = trim(htmlentities($key)); //pacify post value name
                 //if field filled
                 if(!empty($field)){
-                    $this->safePost[$key] = trim(htmlentities($_POST[$field])); //set pacified user input
+                    $this->safePost[$key] = trim(htmlentities($_POST[$key])); //set pacified user input
                 }else{
                     $this->safePost[$key] = ''; //set as empty
                 }
