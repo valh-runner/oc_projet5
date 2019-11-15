@@ -1,47 +1,42 @@
 <?php
-
-require_once("modeles/PostManager.class.php");
-require_once("modeles/UserManager.class.php");
-require_once("modeles/CommentManager.class.php");
-
-class Blog_controller extends Controller{
-	
-	function index(){
+class BlogController extends Controller
+{
+    public function index()
+    {
         $postManager = new PostManager();
         $this->set('posts', $postManager->getAll());
-	}
+    }
     
-    function post($id){
-        
+    public function post($id)
+    {
         $postManager = new PostManager();
         $userManager = new UserManager();
         $commentManager = new CommentManager();
         
-        #ADD COMMENT FORM PROCESS
+        // ADD COMMENT FORM PROCESS
         $feedback = '';
         //if user connected
-        if(isset($_SESSION['connected'])){
+        if (isset($_SESSION['connected'])) {
             //if form submited
-            if(!empty($this->safePost)){
-                
+            if (!empty($this->safePost)) {
                 $fieldNames = array('comment');
                 $fields = array();
                 
                 $pass = true;
                 //pacify and check user inputs
-                foreach($fieldNames as $fieldName){
+                foreach ($fieldNames as $fieldName) {
                     //if post variable exists
-                    if(empty($this->safePost[$fieldName])){
+                    if (empty($this->safePost[$fieldName])) {
                         $fields[$fieldName] = '';
                         $pass = false;
-                    }else{
+                    } else {
                         $fields[$fieldName] = $this->safePost[$fieldName];
                     }
                 }
                 
-                if(!$pass){
+                if (!$pass) {
                     $feedback = 'Un champ est manquant!';
-                }else{
+                } else {
                     //add comment in database
                     $datas = array(
                         'content' => $fields['comment'],
@@ -53,9 +48,9 @@ class Blog_controller extends Controller{
                     $comment = new Comment($datas);
                     $success = $commentManager->add($comment);
                     
-                    if(!$success){ //if comment not added
+                    if (!$success) { //if comment not added
                         $feedback = 'Une erreur s\'est produite!';
-                    }else{
+                    } else {
                         $feedback = 'Commentaire ajouté';
                     }
                 }

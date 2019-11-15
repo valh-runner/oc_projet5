@@ -1,52 +1,52 @@
 <?php
-require_once("modeles/UserManager.class.php");
-
-class Login_controller extends Controller{
-	
-	function index(){
-        
+class LoginController extends Controller
+{
+    public function index()
+    {
         $feedback = '';
         //if form submited
-        if(!empty($this->safePost)){
-            
+        if (!empty($this->safePost)) {
             $fieldNames = array('email', 'password');
             $fields = array();
             
             $pass = true;
             //pacify and check user inputs
-            foreach($fieldNames as $fieldName ){
-                if(empty($this->safePost[$fieldName])){
+            foreach ($fieldNames as $fieldName) {
+                if (empty($this->safePost[$fieldName])) {
                     $fields[$fieldName] = '';
                     $pass = false;
-                }else{
+                } else {
                     $fields[$fieldName] = $this->safePost[$fieldName];
                 }
             }
             
-            if(!$pass){
+            if (!$pass) {
                 $feedback = 'Un champ est manquant!';
-            }else{
+            } else {
                 //if not email format
-                if(!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)){
+                if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
                     $feedback = 'format E-mail invalide';
-                }else{
+                } else {
                     $userManager = new UserManager();
                     $user = $userManager->getByEmail($fields['email']);
                     
                     //if user not found
-                    if($user == false){
+                    if ($user == false) {
                         $feedback = 'E-mail incorrect';
-                    }else{
+                    } else {
                         $success = password_verify($fields['password'], $user->passwordHash());
                         
                         //if password not valid
-                        if(!$success){
+                        if (!$success) {
                             $feedback = 'Mot de passe incorrect';
-                        }else{
+                        } else {
                             $_SESSION['connected'] = true;
                             $_SESSION['userId'] = $user->idUser();
+                            $_SESSION['username'] = $user->username();
                             //if admin granted account
-                            if($user->adminGranted()){$_SESSION['admin'] = true;}
+                            if ($user->adminGranted()) {
+                                $_SESSION['admin'] = true;
+                            }
                             Controller::redirectSmart('home', 'index');
                         }
                     }
@@ -54,15 +54,15 @@ class Login_controller extends Controller{
             }
         }
         $this->set('feedback', $feedback);
-	}
-	
-    function logout(){
+    }
+    
+    public function logout()
+    {
         unset($_SESSION['connected']);
         unset($_SESSION['userId']);
         //if admin granted account
-        if(isset($_SESSION['admin'])){
-           unset($_SESSION['admin']);
+        if (isset($_SESSION['admin'])) {
+            unset($_SESSION['admin']);
         }
     }
 }
-

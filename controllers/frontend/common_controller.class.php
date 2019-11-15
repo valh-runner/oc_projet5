@@ -1,6 +1,4 @@
 <?php
-class Common_controller extends Controller{
-	
-	
-	
+class CommonController extends Controller
+{
 }

@@ -1,9 +1,9 @@
-<?php $title = 'détail du post'; ?>
+<?php $title = 'blog > détail du post'; ?>
 
 <a href='<?php $this->url('blog', 'index'); ?>'>Retour</a>
 
-<p class="text-right">Créé le <?= date('d/m/Y', strtotime($post->revisionTime())); ?></p>
-<p class="text-right">Mis à jour le <?= date('d/m/Y', strtotime($post->revisionTime())); ?></p>
+<p class="text-right">Créé le <?= date('d/m/y', strtotime($post->revisionTime())); ?></p>
+<p class="text-right">Mis à jour le <?= date('d/m/y', strtotime($post->revisionTime())); ?></p>
 <p class="text-right">Auteur : <?= $user->username(); ?></p>
 <h2 class="col-xs-12 text-center" id="title"><?= $post->title(); ?></h2>
 <h3><?= $post->headnote(); ?></h3>
@@ -12,7 +12,7 @@
 <hr class="spacer">
 
 <h3>Formulaire ajout commentaire</h3>
-<?php if(isset($_SESSION['connected'])): ?>
+<?php if (isset($_SESSION['connected'])): ?>
     <form method="post" action="/blog/post/<?= $post->idPost(); ?>">
         <div class="form-group">
             <label for "comment">Votre commentaire<span class="red">*</span> : </label>
@@ -30,11 +30,11 @@
 <hr class="spacer">
 
 <h3>Commentaires</h3>
-<?php foreach($comments as $comment): ?>
+<?php foreach ($comments as $comment): ?>
 <div class="col-xs-12 comment">
     <p class="col-xs-12"><?= nl2br($comment->content()); ?></p>
     <p class="col-xs-12 text-right comment-source">
-        par <span class="bold"><?= $usersWhoCommented[$comment->idUser()]->username(); ?></span> - le ??? (date commentaire)
+        par <span class="bold"><?= $usersWhoCommented[$comment->idUser()]->username(); ?></span> - le <?= date('d/m/y à H:i', strtotime($post->revisionTime())); ?>
     </p>
 </div>
 <?php endforeach; ?>

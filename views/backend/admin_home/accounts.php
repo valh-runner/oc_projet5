@@ -8,7 +8,7 @@
 <table>
 <tr>
     <th>id</th><th>username</th><th>e-mail</th><th>date d'inscription</th><th>admin</th><th>Gestion admin</th>
-<?php foreach($users as $user): ?>
+<?php foreach ($users as $user): ?>
 <tr>
     <td><?= $user->idUser(); ?></td>
     <td><?= $user->username(); ?></td>

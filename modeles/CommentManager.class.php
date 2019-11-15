@@ -1,17 +1,9 @@
 <?php
-require_once("modeles/Manager.class.php");
-require_once("modeles/Comment.class.php");
-
 class CommentManager extends Manager
 {
-    private $_db;
-    
-    public function __construct(){
-        $this->_db = $this->dbConnect(); //database connection from manager
-    }
-    
-    public function add(Comment $comment){
-        $req = $this->_db->prepare('
+    public function add(Comment $comment)
+    {
+        $req = self::getDb()->prepare('
             INSERT INTO comment (content, validated, creation_time, id_post, id_user)
             VALUES (:content, :validated, :creation_time, :id_post, :id_user);
         ');
@@ -23,14 +15,15 @@ class CommentManager extends Manager
             'id_user' => $comment->idUser()
         ));
         $comment->hydrate([
-            'id' => $this->_db->lastInsertId()
+            'id' => self::getDb()->lastInsertId()
         ]);
         $req->closeCursor();
         return $success; //boolean success return
     }
     
-    public function update(Comment $comment){
-        $req = $this->_db->prepare('
+    public function update(Comment $comment)
+    {
+        $req = self::getDb()->prepare('
             UPDATE comment 
             SET content = :content, validated = :validated, creation_time = :creation_time, 
                 id_post = :id_post, id_user = :id_user
@@ -48,29 +41,32 @@ class CommentManager extends Manager
         return $success; //boolean success return
     }
     
-    public function del($id){
-        $req = $this->_db->prepare('DELETE FROM comment WHERE id_comment = :id_comment;');
+    public function del($id)
+    {
+        $req = self::getDb()->prepare('DELETE FROM comment WHERE id_comment = :id_comment;');
         $req->bindValue('id_comment', $id);
         $success = $req->execute();
         return $success; //boolean success return
     }
     
-    public function get($id){
-        $req = $this->_db->prepare('SELECT * FROM comment WHERE id_comment = :id;');
+    public function get($id)
+    {
+        $req = self::getDb()->prepare('SELECT * FROM comment WHERE id_comment = :id;');
         $req->bindValue('id', $id);
         $req->execute();
         $row = $req->fetch();
         $req->closeCursor();
         //if comment not found
-        if($row == false){
+        if ($row == false) {
             return false;
-        }else{
+        } else {
             return new Comment($row);
         }
     }
     
-    public function getAllValidatedForPost($idPost){
-        $req = $this->_db->prepare('
+    public function getAllValidatedForPost($idPost)
+    {
+        $req = self::getDb()->prepare('
             SELECT * FROM comment 
             WHERE id_post = :id_post 
             AND validated = 1 
@@ -79,15 +75,16 @@ class CommentManager extends Manager
         $req->bindValue('id_post', $idPost);
         $req->execute();
         $comments = array();
-        while($row = $req->fetch()){
+        while ($row = $req->fetch()) {
             $comments[] = new Comment($row);
         }
         $req->closeCursor();
         return $comments;
     }
     
-    public function getAllWaitingForPost($idPost){
-        $req = $this->_db->prepare('
+    public function getAllWaitingForPost($idPost)
+    {
+        $req = self::getDb()->prepare('
             SELECT * FROM comment 
             WHERE id_post = :id_post 
             AND validated = 0 
@@ -96,7 +93,7 @@ class CommentManager extends Manager
         $req->bindValue('id_post', $idPost);
         $req->execute();
         $comments = array();
-        while($row = $req->fetch()){
+        while ($row = $req->fetch()) {
             $comments[] = new Comment($row);
         }
         $req->closeCursor();

@@ -1,17 +1,14 @@
 <?php
-
-require_once("modeles/PostManager.class.php");
-require_once("modeles/UserManager.class.php");
-require_once("modeles/CommentManager.class.php");
-
-class Admin_home_controller extends Controller{
-	
-	function index(){
+class AdminHomeController extends Controller
+{
+    public function index()
+    {
         $postManager = new PostManager();
         $this->set('posts', $postManager->getAll());
-	}
+    }
     
-    function post($id){
+    public function post($id)
+    {
         //retrieve concerned post
         $postManager = new PostManager();
         $post = $postManager->get($id);
@@ -23,30 +20,29 @@ class Admin_home_controller extends Controller{
         $this->set('user', $user);
     }
     
-    function addPost(){
-        
+    public function addPost()
+    {
         $feedback = '';
         //if form submited
-        if(!empty($this->safePost)){
-            
+        if (!empty($this->safePost)) {
             $fieldNames = array('title', 'headnote', 'content');
             $fields = array();
             
             $pass = true;
             //check user inputs
-            foreach($fieldNames as $fieldName){
+            foreach ($fieldNames as $fieldName) {
                 //if field is filled
-                if(!empty($this->safePost[$fieldName])){
+                if (!empty($this->safePost[$fieldName])) {
                     $fields[$fieldName] = $this->safePost[$fieldName]; //set pacified user input
-                }else{
+                } else {
                     $fields[$fieldName] = ''; //set as empty
                     $pass = false;
                 }
             }
             
-            if(!$pass){
+            if (!$pass) {
                 $feedback = 'Un champ est manquant!';
-            }else{
+            } else {
                 //add post in database
                 $datas = array(
                     'title' => $fields['title'],
@@ -60,9 +56,9 @@ class Admin_home_controller extends Controller{
                 $postManager = new PostManager();
                 $success = $postManager->add($post);
                 
-                if(!$success){ //if post not added
+                if (!$success) { //if post not added
                     $feedback = 'Une erreur s\'est produite!';
-                }else{
+                } else {
                     $feedback = 'Post ajouté';
                 }
             }
@@ -70,33 +66,32 @@ class Admin_home_controller extends Controller{
         $this->set('feedback', $feedback);
     }
     
-    function updatePost($id){
-        
+    public function updatePost($id)
+    {
         $postManager = new PostManager();
         $post = $postManager->get($id); //retrieve concerned post
         
         $feedback = '';
         //if form submited
-        if(!empty($this->safePost)){
-            
+        if (!empty($this->safePost)) {
             $fieldNames = array('title', 'headnote', 'content');
             $fields = array();
             
             $pass = true;
             //check user inputs
-            foreach($fieldNames as $fieldName){
+            foreach ($fieldNames as $fieldName) {
                 //if field is filled
-                if(!empty($this->safePost[$fieldName])){
+                if (!empty($this->safePost[$fieldName])) {
                     $fields[$fieldName] = $this->safePost[$fieldName]; //set pacified user input
-                }else{
+                } else {
                     $fields[$fieldName] = ''; //set as empty
                     $pass = false;
                 }
             }
             
-            if(!$pass){
+            if (!$pass) {
                 $feedback = 'Un champ est manquant!';
-            }else{
+            } else {
                 //make updates on a copy of the post
                 $updatedPost = clone $post;
                 $updatedPost->setTitle($fields['title']);
@@ -106,9 +101,9 @@ class Admin_home_controller extends Controller{
                 $updatedPost->setIdUser($_SESSION['userId']);
                 
                 $success = $postManager->update($updatedPost); //update in database
-                if(!$success){ //if post not updated
+                if (!$success) { //if post not updated
                     $feedback = 'Une erreur s\'est produite!';
-                }else{
+                } else {
                     $feedback = 'Post modifié';
                     $post = $updatedPost; //update the post with the copy
                 }
@@ -118,27 +113,29 @@ class Admin_home_controller extends Controller{
         $this->set('feedback', $feedback);
     }
     
-    function deletePost($id){
+    public function deletePost($id)
+    {
         $postManager = new PostManager();
         $success = $postManager->del($id);
-        if(!$success){ //if post not deleted
+        if (!$success) { //if post not deleted
             $this->set('feedback', 'Une erreur s\'est produite!');
-        }else{
+        } else {
             $this->set('feedback', 'Post supprimé');
         }
     }
     
-    function validatedComments($idPost){
+    public function validatedComments($idPost)
+    {
         $commentManager = new CommentManager();
         
         //if form submited
-        if(!empty($this->safePost)){
+        if (!empty($this->safePost)) {
             //if isset id_comment
-            if(isset($this->safePost['id_comment'])){
+            if (isset($this->safePost['id_comment'])) {
                 //retrieve concerned comment
                 $comment = $commentManager->get($this->safePost['id_comment']);
                 //if action is unvalidate
-                if(isset($this->safePost['action_unvalidate'])){
+                if (isset($this->safePost['action_unvalidate'])) {
                     $comment->setValidated(0);
                     $commentManager->update($comment);
                 }
@@ -155,21 +152,21 @@ class Admin_home_controller extends Controller{
         $this->set('usersWhoCommented', $usersWhoCommented);
     }
     
-    function waitingComments($idPost){
+    public function waitingComments($idPost)
+    {
         $commentManager = new CommentManager();
         
         //if form submited
-        if(!empty($this->safePost)){
+        if (!empty($this->safePost)) {
             //if isset id_comment
-            if(isset($this->safePost['id_comment'])){
+            if (isset($this->safePost['id_comment'])) {
                 //retrieve concerned comment
                 $comment = $commentManager->get($this->safePost['id_comment']);
                 
-                if(isset($this->safePost['action_validate'])){ //if action is validate
+                if (isset($this->safePost['action_validate'])) { //if action is validate
                     $comment->setValidated(1);
                     $commentManager->update($comment);
-                }
-                elseif(isset($this->safePost['action_delete'])){ //if action is delete
+                } elseif (isset($this->safePost['action_delete'])) { //if action is delete
                     $commentManager->del($comment->idComment());
                 }
             }
@@ -185,21 +182,21 @@ class Admin_home_controller extends Controller{
         $this->set('usersWhoCommented', $usersWhoCommented);
     }
     
-    function accounts(){
+    public function accounts()
+    {
         $userManager = new UserManager();
         
         //if form submited
-        if(!empty($this->safePost)){
+        if (!empty($this->safePost)) {
             //if isset id_user
-            if(isset($this->safePost['id_user'])){
+            if (isset($this->safePost['id_user'])) {
                 //retrieve concerned user
                 $user = $userManager->get($this->safePost['id_user']);
                 
-                if(isset($this->safePost['action_grant'])){ //if action is grant
+                if (isset($this->safePost['action_grant'])) { //if action is grant
                     $user->setAdminGranted(1);
                     $userManager->update($user);
-                }
-                elseif(isset($this->safePost['action_revoke'])){ //if action is revoke
+                } elseif (isset($this->safePost['action_revoke'])) { //if action is revoke
                     $user->setAdminGranted(0);
                     $userManager->update($user);
                 }
@@ -211,4 +208,3 @@ class Admin_home_controller extends Controller{
         $this->set('users', $users);
     }
 }
-

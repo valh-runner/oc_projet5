@@ -1,36 +1,32 @@
 <?php
-require_once("modeles/User.class.php");
-require_once("modeles/UserManager.class.php");
-
-class Signup_controller extends Controller{
-	
-	function index(){
-        
+class SignupController extends Controller
+{
+    public function index()
+    {
         $feedback = '';
         
-        if(!empty($this->safePost)){
-            
+        if (!empty($this->safePost)) {
             $fieldNames = array('email', 'username', 'password');
             $fields = array();
             
             $pass = true;
             //pacify and check user inputs
-            foreach($fieldNames as $fieldName ){
-                if(empty($this->safePost[$fieldName])){
+            foreach ($fieldNames as $fieldName) {
+                if (empty($this->safePost[$fieldName])) {
                     $fields[$fieldName] = '';
                     $pass = false;
-                }else{
+                } else {
                     $fields[$fieldName] = $this->safePost[$fieldName];
                 }
             }
             
-            if(!$pass){
+            if (!$pass) {
                 $feedback = 'Un champ est manquant!';
-            }else{
+            } else {
                 //if not email format
-                if(!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)){
+                if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
                     $feedback = 'format E-mail invalide';
-                }else{
+                } else {
                     $passwordHashed = password_hash($fields['password'], PASSWORD_BCRYPT);
                     
                     $datas = array(
@@ -45,19 +41,18 @@ class Signup_controller extends Controller{
                     $userManager = new UserManager();
                     $success = $userManager->add($user);
                     
-                    if($success){
+                    if ($success) {
                         Controller::redirectSmart('signup', 'confirm');
-                    }else{
+                    } else {
                         $feedback = 'Une erreur s\'est produite';
                     }
                 }
             }
         }
         $this->set('feedback', $feedback);
-	}
-    
-    function confirm(){
-        
     }
-	
+    
+    public function confirm()
+    {
+    }
 }

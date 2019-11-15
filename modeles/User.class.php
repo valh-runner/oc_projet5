@@ -1,64 +1,77 @@
 <?php
-
 class User
 {
-    private $_idUser,
-            $_username,
-            $_email,
-            $_passwordHash,
-            $_registerDate,
-            $_adminGranted;
+    private $_idUser;
+    private $_username;
+    private $_email;
+    private $_passwordHash;
+    private $_registerDate;
+    private $_adminGranted;
     
-    public function __construct(array $datas){
+    public function __construct(array $datas)
+    {
         $this->hydrate($datas);
     }
     
-    public function idUser(){
+    public function idUser()
+    {
         return $this->_idUser;
     }
-    public function username(){
+    public function username()
+    {
         return $this->_username;
     }
-    public function email(){
+    public function email()
+    {
         return $this->_email;
     }
-    public function passwordHash(){
+    public function passwordHash()
+    {
         return $this->_passwordHash;
     }
-    public function registerDate(){
+    public function registerDate()
+    {
         return $this->_registerDate;
     }
-    public function adminGranted(){
+    public function adminGranted()
+    {
         return $this->_adminGranted;
     }
     
-    public function setIdUser($id){
+    public function setIdUser($id)
+    {
         $this->_idUser = $id;
     }
-    public function setUsername($username){
+    public function setUsername($username)
+    {
         $this->_username = $username;
     }
-    public function setEmail($email){
+    public function setEmail($email)
+    {
         $this->_email = $email;
     }
-    public function setPasswordHash($passwordHash){
+    public function setPasswordHash($passwordHash)
+    {
         $this->_passwordHash = $passwordHash;
     }
-    public function setRegisterDate($registerDate){
+    public function setRegisterDate($registerDate)
+    {
         $this->_registerDate = $registerDate;
     }
-    public function setAdminGranted($adminGranted){
+    public function setAdminGranted($adminGranted)
+    {
         $this->_adminGranted = $adminGranted;
     }
     
-    public function hydrate(array $datas){
-        foreach($datas as $fieldName => $data){
+    public function hydrate(array $datas)
+    {
+        foreach ($datas as $fieldName => $data) {
             $fieldNameParts = explode('_', $fieldName);
             $methodName = 'set';
-            foreach($fieldNameParts as $fieldNamePart){
+            foreach ($fieldNameParts as $fieldNamePart) {
                 $methodName .= ucfirst($fieldNamePart);
             }
-            if(method_exists($this, $methodName)){
+            if (method_exists($this, $methodName)) {
                 $this->$methodName($data);
             }
         }

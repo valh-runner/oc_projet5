@@ -6,7 +6,7 @@
 <a href="<?php $this->url('admin_home', 'accounts'); ?>">Gestion des utilisateurs</a>
 <hr>
 
-<?php foreach($posts as $post): ?>
+<?php foreach ($posts as $post): ?>
 <div>
     <h3><?= $post->title(); ?></h3>
     <p>Châpo: <?= $post->headnote(); ?></p>

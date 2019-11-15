@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Blog personnel traitant l'actualité">
-    <meta name="robots" content="noindex">
+    <meta name="description" content="Blog personnel traitant l'actualité IT">
+    <meta name="robots" content="noindex,nofollow">
     
     <title>ActuBlog - <?= $title ?></title>
     <link href="/public/css/bootstrap.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
     <link href="/public/css/main.css" rel="stylesheet">
-	
+    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,7 +32,7 @@
     <div class="container">
       
       <header class="row">
-        <div class="col-xs-12 text-center" id="banner"><a href="index.shtml">actu&lt;Blog&#47;&gt;</a></div>
+        <div class="col-xs-12 text-center" id="banner"><a href="index.shtml"> IT actu&lt;Blog&#47;&gt;</a></div>
         
         <div class="col-xs-12" id="navigation">
           <div class="navbar navbar-default" role="navigation">
@@ -42,17 +42,23 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand"><div></div></a>
+                <a class="navbar-brand"></a>
               </div>
               <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-center">
-                  <li><a href="<?= $this->url('home', 'index') ?>">Accueil</a></li>
-                  <li><a href="<?= $this->url('blog', 'index') ?>">Blog</a></li>
+                  <li><a href="<?= $this->url('home', 'index') ?>"><span style="padding-right:15px;" class="glyphicon glyphicon-home" aria-hidden="true"></span> Accueil</a></li>
+                  <li><a href="<?= $this->url('blog', 'index') ?>"><span style="padding-right:15px;"  class="glyphicon glyphicon-comment" aria-hidden="true"></span> Blog</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if(isset($_SESSION['connected'])): ?>
-                    <li><a>connecté</a></li>
-                    <li><a href="<?= $this->url('login', 'logout') ?>">Se déconnecter</a></li>
+                    <?php if (isset($_SESSION['connected'])): ?>
+                    <li style="padding:15px; padding-bottom:0;">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?= ucfirst($_SESSION['username']) ?>
+                    </li>
+                    <li>
+                        <a href="<?= $this->url('login', 'logout') ?>" title="Se déconnecter">
+                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                        </a>
+                    </li>
                     <?php else: ?>
                     <li><a href="<?= $this->url('signup', 'index') ?>">Inscription</a></li>
                     <li><a href="<?= $this->url('login', 'index') ?>">Connexion</a></li>

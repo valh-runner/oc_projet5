@@ -1,32 +1,32 @@
 <?php
-class Home_controller extends Controller{
-	
-	function index(){
+class HomeController extends Controller
+{
+    public function index()
+    {
         $feedback = '';
         //if form submited for contact
-        if(!empty($this->safePost)){
-            
+        if (!empty($this->safePost)) {
             $fieldNames = array('name', 'firstname', 'email', 'message');
             $fields = array();
             
             $pass = true;
             //pacify and check user inputs
-            foreach($fieldNames as $fieldName ){
-                if(empty($this->safePost[$fieldName])){
+            foreach ($fieldNames as $fieldName) {
+                if (empty($this->safePost[$fieldName])) {
                     $fields[$fieldName] = '';
                     $pass = false;
-                }else{
+                } else {
                     $fields[$fieldName] = $this->safePost[$fieldName];
                 }
             }
             
-            if(!$pass){
+            if (!$pass) {
                 $feedback = 'Un champ est manquant!';
-            }else{
+            } else {
                 //if not email format
-                if(!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)){
+                if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
                     $feedback = 'format E-mail invalide';
-                }else{
+                } else {
                     //send email
                     $subject = 'contact via IT actuBlog from '.$fields['name'].' '.$fields['firstname'];
                     $headers = 'From: '.$fields['email'];
@@ -36,6 +36,5 @@ class Home_controller extends Controller{
             }
         }
         $this->set('feedback', $feedback);
-	}
-	
+    }
 }
