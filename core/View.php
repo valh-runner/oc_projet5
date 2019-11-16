@@ -36,15 +36,14 @@ class View
         }
         
         include ROOT.'views/frontend/common/layout/'.$this->layout.'.php';
-        exit(); //fin de la réponse TODO: useless?
     }
     
     public function url($page, $action, $params = array())
     {
         if (empty($params)) {
-            echo URLROOT.$page.'/'.$action;
+            return URLROOT.$page.'/'.$action;
         } else {
-            echo URLROOT.$page.'/'.$action.'/'.implode('/', $params);
+            return URLROOT.$page.'/'.$action.'/'.implode('/', $params);
         }
     }
 }

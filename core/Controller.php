@@ -24,6 +24,10 @@ class Controller
         $oView = new View($page, $view, $this->vars, $this->noView);
     }
     
+    public static function callOnlyView($page, $view){
+        $oView = new View($page, $view);
+    }
+    
     public static function redirect(array $url)
     {
         header('HTTP/1.1 301 Moved Permanently');

@@ -54,69 +54,49 @@ if (count($urlParts) > 2) {
 //if page specified
 if (!empty($url['page'])) {
     
-    //if common page
-    if ($url['page'] == 'common') {
-        //if page error404
-        if ($url['page'] == 'common' && $url['action'] == 'error404') {
-            //Controller::renderStatic('error404');
-            echo header('HTTP/1.1 404 Not Found'); //set header 404 in response
-            $oView = new VIEW($url['page'], $url['action']); //view instanciation
-            exit();
+    //page security level check and access grant verification
+    $access = true;
+    $basePath = 'controllers/frontend/';
+    if (substr($url['page'], 0, 6) == 'admin_') {//if ask admin page
+        $access = false;
+        $basePath = 'controllers/backend/';
+        //if logged and have admin access rights
+        if (isset($_SESSION['connected']) && isset($_SESSION['admin'])) {
+            $access = true;
         }
-        //if page access_denied
-        if ($url['page'] == 'common' && $url['action'] == 'access_denied') {
-            //Controller::renderStatic('access_denied');
-            $oView = new VIEW($url['page'], $url['action']); //view instanciation
-            exit();
-        } else {
-            $url = array('page'=>'home', 'action'=>'index', 'params'=>array());
-            Controller::redirect($url);
-        }
+    }
+    
+    //if not access granted
+    if (!$access) {
+        $url = array('page'=>'common', 'action'=>'access_denied', 'params'=>array());
+        Controller::redirect($url);
     } else {
-        //access grant verification
-        $access = true;
-        $basePath = 'controllers/frontend/';
-        if (substr($url['page'], 0, 6) == 'admin_') {//if ask admin page
-            $access = false;
-            $basePath = 'controllers/backend/';
-            //if logged and have admin access rights
-            if (isset($_SESSION['connected']) && isset($_SESSION['admin'])) {
-                $access = true;
-            }
-        }
+        $controllerName = implode(array_map('ucfirst', explode('_', $url['page']))).'Controller';// controller name deduction
         
-        //if not access granted
-        if (!$access) {
-            $url = array('page'=>'common', 'action'=>'access_denied', 'params'=>array());
-            Controller::redirect($url);
-        } else {
-            $controllerName = implode(array_map('ucfirst', explode('_', $url['page']))).'Controller';// controller name deduction
+        // if page exists
+        if (is_file($basePath.$controllerName.'.php')) {
             
-            // if page exists
-            if (is_file($basePath.$controllerName.'.php')) {
-                //include_once $basePath.$controllerName.'.php'; //load controller of page TODO: to delete
+            // if action specified
+            if (!empty($url['action'])) {
+                $methodName = lcfirst(implode(array_map('ucfirst', explode('_', $url['action']))));// method name deduction
                 
-                // if action specified
-                if (!empty($url['action'])) {
-                    $methodName = lcfirst(implode(array_map('ucfirst', explode('_', $url['action']))));// method name deduction
-                    
-                    // if action exists
-                    if (method_exists($controllerName, $methodName)) {
-                        $url = array('page'=>$url['page'], 'action'=>$url['action'], 'params'=>$url['params']);
-                    } else {
-                        $url = array('page'=>$url['page'], 'action'=>'index', 'params'=>array());
-                        Controller::redirect($url);
-                    }
+                // if action exists
+                if (method_exists($controllerName, $methodName)) {
+                    $url = array('page'=>$url['page'], 'action'=>$url['action'], 'params'=>$url['params']);
                 } else {
                     $url = array('page'=>$url['page'], 'action'=>'index', 'params'=>array());
                     Controller::redirect($url);
                 }
             } else {
-                $url = array('page'=>'common', 'action'=>'error404', 'params'=>array());
+                $url = array('page'=>$url['page'], 'action'=>'index', 'params'=>array());
                 Controller::redirect($url);
             }
+        } else {
+            $url = array('page'=>'common', 'action'=>'error404', 'params'=>array());
+            Controller::redirect($url);
         }
     }
+    
 } else {
     $url = array('page'=>'home', 'action'=>'index', 'params'=>array());
     Controller::redirect($url);
@@ -124,4 +104,4 @@ if (!empty($url['page'])) {
 
 // CONTROLLER INVOCATION
 
-$oController = new $controllerName($url); //controller instanciation
+$oController = new $controllerName($url); //autoload controller class and instanciate

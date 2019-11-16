@@ -1,6 +1,6 @@
 <?php $title = 'blog > détail du post'; ?>
 
-<a href='<?php $this->url('blog', 'index'); ?>'>Retour</a>
+<a href='<?= $this->url('blog', 'index'); ?>'>Retour</a>
 
 <p class="text-right">Créé le <?= date('d/m/y', strtotime($post->revisionTime())); ?></p>
 <p class="text-right">Mis à jour le <?= date('d/m/y', strtotime($post->revisionTime())); ?></p>

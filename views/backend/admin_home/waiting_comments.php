@@ -2,7 +2,7 @@
 
 <h2>admin - Commentaires en attente</h2>
 <hr>
-<a href='<?php $this->url('admin_home', 'index'); ?>'>Retour</a>
+<a href='<?= $this->url('admin_home', 'index'); ?>'>Retour</a>
 <hr>
 
 <?php foreach ($comments as $comment): ?>

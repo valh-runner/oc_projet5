@@ -8,7 +8,7 @@
     <div class="col-xs-12"><h3><?= $post->title(); ?></h3></div>
     <div class="col-xs-12 post-headnote"><p><?= $post->headnote(); ?></p></div>
     <div class="col-xs-12 text-center"><p>
-        <a href='<?php $this->url('blog', 'post', array($post->idPost())); ?>'>Voir l'article</a>
+        <a href='<?= $this->url('blog', 'post', array($post->idPost())); ?>'>Voir l'article</a>
     </p></div>
 </div>
 <?php endforeach; ?>

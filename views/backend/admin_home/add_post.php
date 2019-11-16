@@ -2,7 +2,7 @@
 
 <h2>admin - Ajout d'un post</h2>
 <hr>
-<a href='<?php $this->url('admin_home', 'index'); ?>'>Retour</a>
+<a href='<?= $this->url('admin_home', 'index'); ?>'>Retour</a>
 <hr class="spacer">
 <form method="post" action="/admin_home/add_post">
     <div class="form-group">

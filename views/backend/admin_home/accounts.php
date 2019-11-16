@@ -2,7 +2,7 @@
 
 <h2>admin - Gestion des utilisateurs</h2>
 <hr>
-<a href='<?php $this->url('admin_home', 'index'); ?>'>Retour</a>
+<a href='<?= $this->url('admin_home', 'index'); ?>'>Retour</a>
 <hr>
 
 <table>

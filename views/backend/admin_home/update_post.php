@@ -2,7 +2,7 @@
 
 <h2>admin - Modification d'un post</h2>
 <hr>
-<a href='<?php $this->url('admin_home', 'index'); ?>'>Retour</a>
+<a href='<?= $this->url('admin_home', 'index'); ?>'>Retour</a>
 <hr class="spacer">
 <form method="post" action="/admin_home/update_post/<?= $post->idPost(); ?>">
     <div class="form-group">
