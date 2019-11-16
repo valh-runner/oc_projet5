@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 
 // PATHS
 
@@ -18,18 +19,10 @@ define('PATHVIEWS', WEBROOT.'views'.DS);//                        /views/
 
 // CORE
 
-require ROOT.'/core/controller.class.php';
-require ROOT.'/core/view.class.php';
-require ROOT.'/core/model.class.php';
+require ROOT.'/core/Controller.php';
+require ROOT.'/core/View.php';
+require ROOT.'/core/Model.php';
 session_start();
-
-require_once "modeles/Manager.class.php";
-require_once "modeles/User.class.php";
-require_once "modeles/UserManager.class.php";
-require_once "modeles/Post.class.php";
-require_once "modeles/PostManager.class.php";
-require_once "modeles/Comment.class.php";
-require_once "modeles/CommentManager.class.php";
 
 // DISPATCHER
 
@@ -97,13 +90,14 @@ if (!empty($url['page'])) {
             $url = array('page'=>'common', 'action'=>'access_denied', 'params'=>array());
             Controller::redirect($url);
         } else {
+            $controllerName = implode(array_map('ucfirst', explode('_', $url['page']))).'Controller';// controller name deduction
+            
             // if page exists
-            if (is_file($basePath.$url['page'].'_controller.class.php')) {
-                include_once $basePath.$url['page'].'_controller.class.php'; //load controller of page
+            if (is_file($basePath.$controllerName.'.php')) {
+                //include_once $basePath.$controllerName.'.php'; //load controller of page TODO: to delete
                 
                 // if action specified
                 if (!empty($url['action'])) {
-                    $controllerName = implode(array_map('ucfirst', explode('_', $url['page']))).'Controller';// controller name deduction
                     $methodName = lcfirst(implode(array_map('ucfirst', explode('_', $url['action']))));// method name deduction
                     
                     // if action exists

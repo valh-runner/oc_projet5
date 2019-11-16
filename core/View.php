@@ -35,9 +35,8 @@ class View
             }
         }
         
-        //include(ROOT.'views/frontend/common/layout/'.self::$layout.'.php');
         include ROOT.'views/frontend/common/layout/'.$this->layout.'.php';
-        exit(); //fin de la réponse
+        exit(); //fin de la réponse TODO: useless?
     }
     
     public function url($page, $action, $params = array())
