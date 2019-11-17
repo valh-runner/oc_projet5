@@ -16,7 +16,7 @@ class BlogController extends Controller
         // ADD COMMENT FORM PROCESS
         $feedback = '';
         //if user connected
-        if (isset($_SESSION['connected'])) {
+        if ($this->session->isSession('connected')) {
             //if form submited
             if (!empty($this->safePost)) {
                 $fieldNames = array('comment');
@@ -43,7 +43,7 @@ class BlogController extends Controller
                         'validated' => 0,
                         'creation_time' => date('Y-m-d H:i:s'),
                         'idPost' => $id,
-                        'idUser' => $_SESSION['userId']
+                        'idUser' => $this->session->getSession('userId')
                     );
                     $comment = new Comment($datas);
                     $success = $commentManager->add($comment);

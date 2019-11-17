@@ -5,6 +5,12 @@
 Instructions d'installation:
 ----------------------------
 Disposer d'un environnement Apache, Php, Mysql.
-Placer le contenu du dépot dans un virtualhost.
+Créer un virtualhost.
 Activer les extensions php correspondant à l'URL Rewriting et à PDO.
-Lancer index.php
+Creer une base de donnée.
+Cloner ou copier le contenu du dépot Github dans votre virtualhost.
+Dans le dossier Modeles se trouve le fichier dump_db.sql.
+Executer ce fichier pour initialiser la base de donnée.
+Changer les valeurs de connexion à la BDD dans le fichier Manager.sql pour que l'application
+se connecte à votre BDD.
+Consulter le nom de domaine assigné à votre virtualhost depuis votre navigateur.

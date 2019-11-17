@@ -14,8 +14,8 @@
     </p>
     <form method="post" action="/admin_home/waiting_comments/<?= $comment->idPost(); ?>">
         <input type="hidden" name="id_comment" value="<?= $comment->idComment(); ?>"/>
-        <input type="submit" name="action_delete" value="Supprimer"/>
-        <input type="submit" name="action_validate" value="Valider"/>
+        <button name="action_delete" class="btn">Supprimer</button>
+        <button name="action_validate" class="btn">Valider</button>
     </form>
 </div>
 <?php endforeach; ?>

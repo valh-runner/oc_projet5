@@ -10,7 +10,7 @@
         <div>
             <a href="<?= $this->url('home', 'index') ?>">Accueil</a> - 
             <a href="<?= $this->url('blog', 'index') ?>">Blog</a> - 
-            <?php if (isset($_SESSION['connected'])): ?>
+            <?php if ($this->session->isSession('connected')): ?>
             <span>connecté</span> - 
             <a href="<?= $this->url('login', 'logout') ?>">Se déconnecter</a>
             <?php else: ?>

@@ -11,25 +11,28 @@
 
 <hr class="spacer">
 
-<h3>Formulaire ajout commentaire</h3>
-<?php if (isset($_SESSION['connected'])): ?>
-    <form method="post" action="/blog/post/<?= $post->idPost(); ?>">
-        <div class="form-group">
-            <label for "comment">Votre commentaire<span class="red">*</span> : </label>
-            <p><textarea name="comment"/></textarea></p>
-        </div>
-        <button class="btn pull-right">Envoyer</button>
-        <div class="clearfix"></div>
-        <div class="red">* Champs obligatoires</div>
-    </form>
-    <?= $feedback ?>
-<?php else: ?>
-    <p>Connectez-vous pour déposer un commentaire</p>
-<?php endif; ?>
+<div class="col-xs-12 panel">
+    <h3>Poster un commentaire</h3>
+    <?php if ($this->session->isSession('connected')): ?>
+        <form method="post" action="/blog/post/<?= $post->idPost(); ?>">
+            <div class="form-group">
+                <p><textarea class="form-control" name="comment" placeholder="Votre commentaire"/></textarea></p>
+            </div>
+            <button class="btn pull-right">Envoyer</button>
+            <div class="clearfix"></div>
+        </form>
+        <?= $feedback ?>
+    <?php else: ?>
+        <p>Connectez-vous pour déposer un commentaire</p>
+    <?php endif; ?>
+</div>
 
 <hr class="spacer">
 
 <h3>Commentaires</h3>
+<?php if(empty($comments)): ?>
+Pas de commentaires
+<?php endif; ?>
 <?php foreach ($comments as $comment): ?>
 <div class="col-xs-12 comment">
     <p class="col-xs-12"><?= nl2br($comment->content()); ?></p>

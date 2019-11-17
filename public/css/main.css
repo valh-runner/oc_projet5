@@ -9,7 +9,7 @@ body {
 }
 
 #banner{
-  padding-top: 48px;
+  padding-top: 30px;
   padding-bottom: 15px;
   color: #fff;
 }
@@ -47,12 +47,27 @@ body {
   color: #fff;
 }
 
+.navbar-default .glyphicon-home {
+  padding-right:15px;
+}
+.navbar-default .glyphicon-comment {
+  padding-right:15px;
+}
+.navbar-default .glyphicon-user {
+  padding-top:15px;
+  padding-right:15px;
+  /* padding-bottom:0; */
+}
+.navbar-default #username {
+  padding-right:15px;
+}
+
 #sub-bar{
   background-color: #888;
 }
 
 #content {
-  background-color: #ccc;
+  background-color: #ddd;
 }
 #content-in {
   background-color: #eee;
@@ -105,6 +120,43 @@ p{
     font-style: italic;
 }
 
+.bold{
+    font-weight: bold;
+}
+
+.red {
+  color: #c33;
+}
+
+.spacer{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+form legend {
+  color: #777;
+  border-color: #777;
+}
+
+form .btn{
+  color: #fff;
+  background-color: #047;
+}
+
+.panel{
+    background-color:#ddd; border:1px solid #bbb;
+}
+
+.nopad-left{
+  /* padding-left: 0; */
+  /* padding-right: 0; */
+  padding: 0;
+}
+.nopad-right{
+  /* padding-left: 0; */
+  /* padding-right: 0; */
+  padding: 0;
+}
 
 @media (min-width: 1px) {
   #banner{
@@ -121,7 +173,15 @@ p{
   #banner{
     font-size: 35px;
   }
-  
+
+  .nopad-left{
+    padding-left: 0;
+    padding-right: 15px;
+  }
+  .nopad-right{
+    padding-left: 15px;
+    padding-right: 0;
+  }
 }
 @media (min-width: 992px) {
   #banner{
@@ -132,35 +192,4 @@ p{
   .navbar-default .navbar-nav > li > a {
     font-size: 24px;
   }
-}
-
-.bold{
-    font-weight: bold;
-}
-
-.red {
-  color: #f33;
-}
-
-.spacer{
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-form legend {
-  color: #bbb;
-  border-color: #bbb;
-}
-
-form .btn{
-  color: #000;
-  background-color: #ffff19;
-}
-
-td{
-    border: 1px solid #555;
-    padding: 2px 4px;
-}
-th{
-    padding: 2px 4px;
 }

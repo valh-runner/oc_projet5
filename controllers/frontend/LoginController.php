@@ -40,12 +40,12 @@ class LoginController extends Controller
                         if (!$success) {
                             $feedback = 'Mot de passe incorrect';
                         } else {
-                            $_SESSION['connected'] = true;
-                            $_SESSION['userId'] = $user->idUser();
-                            $_SESSION['username'] = $user->username();
+                            $this->session->setSession('connected', true);
+                            $this->session->setSession('userId', $user->idUser());
+                            $this->session->setSession('username', $user->username());
                             //if admin granted account
                             if ($user->adminGranted()) {
-                                $_SESSION['admin'] = true;
+                                $this->session->setSession('admin', true);
                             }
                             Controller::redirectSmart('home', 'index');
                         }
@@ -58,11 +58,11 @@ class LoginController extends Controller
     
     public function logout()
     {
-        unset($_SESSION['connected']);
-        unset($_SESSION['userId']);
+        $this->session->unsetSession('connected');
+        $this->session->unsetSession('userId');
         //if admin granted account
-        if (isset($_SESSION['admin'])) {
-            unset($_SESSION['admin']);
+        if ($this->session->isSession('admin')) {
+            $this->session->unsetSession('admin');
         }
     }
 }

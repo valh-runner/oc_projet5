@@ -46,13 +46,14 @@
               </div>
               <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-center">
-                  <li><a href="<?= $this->url('home', 'index') ?>"><span style="padding-right:15px;" class="glyphicon glyphicon-home" aria-hidden="true"></span> Accueil</a></li>
-                  <li><a href="<?= $this->url('blog', 'index') ?>"><span style="padding-right:15px;"  class="glyphicon glyphicon-comment" aria-hidden="true"></span> Blog</a></li>
+                  <li><a href="<?= $this->url('home', 'index') ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Accueil</a></li>
+                  <li><a href="<?= $this->url('blog', 'index') ?>"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Blog</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if (isset($_SESSION['connected'])): ?>
-                    <li style="padding:15px; padding-bottom:0;">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?= ucfirst($_SESSION['username']) ?>
+                    <?php if ($this->session->isSession('connected')): ?>
+                    <li>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <span id="username"><?= ucfirst($this->session->getSession('username')) ?></span>
                     </li>
                     <li>
                         <a href="<?= $this->url('login', 'logout') ?>" title="Se déconnecter">

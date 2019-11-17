@@ -4,10 +4,13 @@ class Controller
     private $vars = array();
     public $noView = false;
     public $safePost = array();
+    public $session;
     
     public function __construct(array $url)
     {
         $this->setSafePost();
+        $this->session = new Session();
+        // $this->set('session', $this->session);
         
         $deducedMethodName = lcfirst(implode(array_map('ucfirst', explode('_', $url['action']))));
         call_user_func_array(array($this, $deducedMethodName), $url['params']); //call of controller object method

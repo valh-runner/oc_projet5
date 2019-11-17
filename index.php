@@ -23,6 +23,7 @@ require ROOT.'/core/Controller.php';
 require ROOT.'/core/View.php';
 require ROOT.'/core/Model.php';
 session_start();
+$session = new Session();
 
 // DISPATCHER
 
@@ -61,7 +62,7 @@ if (!empty($url['page'])) {
         $access = false;
         $basePath = 'controllers/backend/';
         //if logged and have admin access rights
-        if (isset($_SESSION['connected']) && isset($_SESSION['admin'])) {
+        if ($session->isSession('connected') && $session->isSession('admin')) {
             $access = true;
         }
     }

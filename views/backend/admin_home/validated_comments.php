@@ -14,7 +14,7 @@
     </p>
     <form method="post" action="/admin_home/validated_comments/<?= $comment->idPost(); ?>">
         <input type="hidden" name="id_comment" value="<?= $comment->idComment(); ?>"/>
-        <input type="submit" name="action_unvalidate" value="Dévalider"/>
+        <button name="action_unvalidate" class="btn">Dévalider</button>
     </form>
 </div>
 <?php endforeach; ?>

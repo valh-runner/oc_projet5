@@ -7,15 +7,15 @@
 <form method="post" action="/admin_home/add_post">
     <div class="form-group">
         <label for "title">Titre<span class="red">*</span> : </label>
-        <p><input type="text" name="title"/></p>
+        <p><input type="text" class="form-control" name="title"/></p>
     </div>
     <div class="form-group">
         <label for "headnote">Chapô<span class="red">*</span> : </label>
-        <p><input type="text" name="headnote"/></p>
+        <p><input type="text" class="form-control" name="headnote"/></p>
     </div>
     <div class="form-group">
         <label for "content">Contenu<span class="red">*</span> : </label>
-        <p><textarea name="content"/></textarea>
+        <p><textarea class="form-control" name="content"/></textarea>
     </div>
     <button class="btn pull-right">Envoyer</button>
     <div class="clearfix"></div>

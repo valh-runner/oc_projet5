@@ -3,9 +3,11 @@ class View
 {
     private $layout = 'only';
     //protected $elements= array();
+    public $session;
     
     public function __construct($page, $view, $vars = array(), $noView = false)
     {
+        $this->session = new Session();
         $this->render($page, $view, $vars, $noView);
     }
     
@@ -35,6 +37,12 @@ class View
             }
         }
         
+        // Construction of response
+        if(isset($httpHeader)){
+            if($httpHeader == '404'){
+                header('HTTP/1.1 404 Not Found'); //set header 404 in response
+            }
+        }
         include ROOT.'views/frontend/common/layout/'.$this->layout.'.php';
     }
     

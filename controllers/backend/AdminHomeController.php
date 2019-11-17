@@ -50,7 +50,7 @@ class AdminHomeController extends Controller
                     'content' => $fields['content'],
                     'creationTime' => date('Y-m-d H:i:s'),
                     'revisionTime' => date('Y-m-d H:i:s'),
-                    'idUser' => $_SESSION['userId']
+                    'idUser' => $this->session->getSession('userId')
                 );
                 $post = new Post($datas);
                 $postManager = new PostManager();
@@ -98,7 +98,7 @@ class AdminHomeController extends Controller
                 $updatedPost->setHeadnote($fields['headnote']);
                 $updatedPost->setContent($fields['content']);
                 $updatedPost->setRevisionTime(date('Y-m-d H:i:s'));
-                $updatedPost->setIdUser($_SESSION['userId']);
+                $updatedPost->setIdUser($this->session->getSession('userId'));
                 
                 $success = $postManager->update($updatedPost); //update in database
                 if (!$success) { //if post not updated
