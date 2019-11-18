@@ -9,7 +9,7 @@
 <h3><?= $post->headnote(); ?></h3>
 <p><?= $post->content(); ?></p>
 
-<hr class="spacer">
+<div class="spacer"></div>
 
 <div class="col-xs-12 panel">
     <h3>Poster un commentaire</h3>
@@ -27,7 +27,7 @@
     <?php endif; ?>
 </div>
 
-<hr class="spacer">
+<div class="spacer"></div>
 
 <h3>Commentaires</h3>
 <?php if (empty($comments)) : ?>

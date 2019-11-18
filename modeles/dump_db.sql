@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 17 nov. 2019 à 16:56
+-- Généré le :  lun. 18 nov. 2019 à 16:11
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -69,18 +69,17 @@ CREATE TABLE IF NOT EXISTS `post` (
   `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id_post`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `post`
 --
 
 INSERT INTO `post` (`id_post`, `title`, `headnote`, `content`, `creation_time`, `revision_time`, `id_user`) VALUES
-(1, 'Coupe du monde de rugby', 'Remise de la coupe du monde de rugby', 'La remise de la coupe du monde de rugby a eu lieu aujourd\'hui au japon.\r\nLa remise de la coupe du monde de rugby a eu lieu aujourd\'hui au japon.\r\nLa remise de la coupe du monde de rugby a eu lieu aujourd\'hui au japon.\r\nLa remise de la coupe du monde de rugby a eu lieu aujourd\'hui au japon.', '2019-11-02 00:00:00', '2019-11-02 00:00:00', 2),
-(2, 'Halloween', 'Soirée d\'Halloween', 'La soirée d\'Halloween à eu lieu ce vendredi soir dans la Capitale dans un calme apparent.\r\nLa soirée d\'Halloween à eu lieu ce vendredi soir dans la Capitale dans un calme apparent.\r\nLa soirée d\'Halloween à eu lieu ce vendredi soir dans la Capitale dans un calme apparent.\r\nLa soirée d\'Halloween à eu lieu ce vendredi soir dans la Capitale dans un calme apparent.', '2019-11-01 00:00:00', '2019-11-01 00:00:00', 2),
-(3, 'Grève de la SNCF', 'La grève de la SNCF', 'La grève de la SNCF se poursuit encore, les usagers continuent de subir sans pouvoirs trouver d\'alternative viable.\r\nLa grève de la SNCF se poursuit encore, les usagers continuent de subir sans pouvoirs trouver d\'alternative viable.\r\nLa grève de la SNCF se poursuit encore, les usagers continuent de subir sans pouvoirs trouver d\'alternative viable.', '2019-10-31 00:00:00', '2019-10-31 00:00:00', 2),
-(5, 'La FDJ en bourse!', 'Entr&eacute;e en bourse de la fran&ccedil;aise des jeux', 'La fran&ccedil;aise des jeux entre en bourse. De belles &eacute;conomies en perspectives pour le gouvernement. \r\nLa fran&ccedil;aise des jeux entre en bourse. De belles &eacute;conomies en perspectives pour le gouvernement. \r\nLa fran&ccedil;aise des jeux entre en bourse. De belles &eacute;conomies en perspectives pour le gouvernement.', '2019-11-06 00:00:00', '2019-11-06 00:00:00', 4),
-(6, 'azerty4', 'qsdfgh47', 'wxcvb43', '2019-11-07 00:00:00', '2019-11-07 00:00:00', 4);
+(1, 'Coupe du monde de rugby', 'Remise de la coupe du monde de rugby', 'La remise de la coupe du monde de rugby a eu lieu aujourd\'hui au japon.\r\nLa remise de la coupe du monde de rugby a eu lieu aujourd\'hui au japon.\r\nLa remise de la coupe du monde de rugby a eu lieu aujourd\'hui au japon.\r\nLa remise de la coupe du monde de rugby a eu lieu aujourd\'hui au japon.', '2019-11-02 10:05:08', '2019-11-02 10:05:08', 2),
+(2, 'Halloween', 'Soirée d\'Halloween', 'La soirée d\'Halloween à eu lieu ce vendredi soir dans la Capitale dans un calme apparent.\r\nLa soirée d\'Halloween à eu lieu ce vendredi soir dans la Capitale dans un calme apparent.\r\nLa soirée d\'Halloween à eu lieu ce vendredi soir dans la Capitale dans un calme apparent.\r\nLa soirée d\'Halloween à eu lieu ce vendredi soir dans la Capitale dans un calme apparent.', '2019-11-01 07:50:53', '2019-11-01 07:50:53', 2),
+(3, 'Grève de la SNCF', 'La grève de la SNCF', 'La grève de la SNCF se poursuit encore, les usagers continuent de subir sans pouvoirs trouver d\'alternative viable.\r\nLa grève de la SNCF se poursuit encore, les usagers continuent de subir sans pouvoirs trouver d\'alternative viable.\r\nLa grève de la SNCF se poursuit encore, les usagers continuent de subir sans pouvoirs trouver d\'alternative viable.', '2019-10-31 09:22:54', '2019-10-31 09:22:54', 2),
+(5, 'La FDJ en bourse!', 'Entr&eacute;e en bourse de la fran&ccedil;aise des jeux', 'La fran&ccedil;aise des jeux entre en bourse. De belles &eacute;conomies en perspectives pour le gouvernement. \r\nLa fran&ccedil;aise des jeux entre en bourse. De belles &eacute;conomies en perspectives pour le gouvernement. \r\nLa fran&ccedil;aise des jeux entre en bourse. De belles &eacute;conomies en perspectives pour le gouvernement.\r\nLa fran&ccedil;aise des jeux entre en bourse. De belles &eacute;conomies en perspectives pour le gouvernement.', '2019-11-06 12:05:42', '2019-11-18 15:18:21', 4);
 
 -- --------------------------------------------------------
 

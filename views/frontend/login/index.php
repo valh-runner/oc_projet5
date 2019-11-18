@@ -4,6 +4,7 @@
 <hr>
 
 <form method="post" action="/login/index" id="form-login" class="col-sm-offset-2 col-sm-8 panel">
+    <div class="spacer"></div>
     <div class="form-group">
         <label for "email">Email : </label>
         <p><input type="text" class="form-control" name="email" id="email"/></p>
@@ -15,4 +16,5 @@
     <button class="btn pull-right">Se connecter</button>
     <div class="clearfix"></div>
     <?= $feedback ?>
+    <div class="spacer"></div>
 </form>

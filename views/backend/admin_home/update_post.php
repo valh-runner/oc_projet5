@@ -3,7 +3,7 @@
 <h2>admin - Modification d'un post</h2>
 <hr>
 <a href='<?= $this->url('admin_home', 'post', array($post->idPost())); ?>'>Retour</a>
-<hr class="spacer">
+<div class="spacer"></div>
 <form method="post" action="/admin_home/update_post/<?= $post->idPost(); ?>">
     <div class="form-group">
         <label for "title">Titre<span class="red">*</span> : </label>

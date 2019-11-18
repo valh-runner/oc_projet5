@@ -1,4 +1,5 @@
-<?php/**
+<?php
+/**
  * Core class Model
  */
 class Model

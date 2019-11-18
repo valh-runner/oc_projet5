@@ -10,9 +10,9 @@
 <p class="text-right">Mis à jour le <?= date('d/m/Y à H:i', strtotime($post->revisionTime())); ?></p>
 <p class="text-right">Auteur : <?= $user->username(); ?></p>
 
-<hr class="spacer">
+<div class="spacer"></div>
 
 <h3><?= $post->title(); ?></h3>
 <p><?= $post->headnote(); ?></p>
-<hr class="spacer">
+<div class="spacer"></div>
 <p><?= $post->content(); ?></p>
