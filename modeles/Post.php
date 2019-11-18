@@ -1,77 +1,117 @@
 <?php
+/**
+ * Comment entity specification
+ */
 class Post
 {
-    private $_idPost;
-    private $_title;
-    private $_headnote;
-    private $_content;
-    private $_creationTime;
-    private $_revisionTime;
-    private $_idUser;
+    /**
+     * @var int
+     */
+    private $idPost;
+    /**
+     * @var string
+     */
+    private $title;
+    /**
+     * @var string
+     */
+    private $headnote;
+    /**
+     * @var string
+     */
+    private $content;
+    /**
+     * @var string
+     */
+    private $creationTime;
+    /**
+     * @var string
+     */
+    private $revisionTime;
+    /**
+     * @var int
+     */
+    private $idUser;
     
+    /**
+     * Constructor
+     * @param array $datas
+     */
     public function __construct(array $datas)
     {
         $this->hydrate($datas);
     }
     
+    /**
+     * Getters
+     */
+
     public function idPost()
     {
-        return $this->_idPost;
+        return $this->idPost;
     }
     public function title()
     {
-        return $this->_title;
+        return $this->title;
     }
     public function headnote()
     {
-        return $this->_headnote;
+        return $this->headnote;
     }
     public function content()
     {
-        return $this->_content;
+        return $this->content;
     }
     public function creationTime()
     {
-        return $this->_creationTime;
+        return $this->creationTime;
     }
     public function revisionTime()
     {
-        return $this->_revisionTime;
+        return $this->revisionTime;
     }
     public function idUser()
     {
-        return $this->_idUser;
+        return $this->idUser;
     }
     
+    /**
+     * Setters
+     */
+
     public function setIdPost($id)
     {
-        $this->_idPost = $id;
+        $this->idPost = $id;
     }
     public function setTitle($title)
     {
-        $this->_title = $title;
+        $this->title = $title;
     }
     public function setHeadnote($headnote)
     {
-        $this->_headnote = $headnote;
+        $this->headnote = $headnote;
     }
     public function setContent($content)
     {
-        $this->_content = $content;
+        $this->content = $content;
     }
     public function setCreationTime($creationTime)
     {
-        $this->_creationTime = $creationTime;
+        $this->creationTime = $creationTime;
     }
     public function setRevisionTime($revisionTime)
     {
-        $this->_revisionTime = $revisionTime;
+        $this->revisionTime = $revisionTime;
     }
     public function setIdUser($idUser)
     {
-        $this->_idUser = $idUser;
+        $this->idUser = $idUser;
     }
     
+    /**
+     * Fill each attribute of the entity with datas
+     * @param array $datas
+     */
     public function hydrate(array $datas)
     {
         foreach ($datas as $fieldName => $data) {

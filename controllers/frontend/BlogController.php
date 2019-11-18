@@ -1,13 +1,25 @@
 <?php
+/**
+ * Blog functionalities
+ */
 class BlogController extends Controller
 {
+    /**
+     * Retrieve all posts
+     */
     public function index()
     {
         $postManager = new PostManager();
         $this->set('posts', $postManager->getAll());
     }
     
-    public function post($id)
+    /**
+     * Retrieve a post and user who created it.
+     * Retrieve all comments associated and users who create theses.
+     * Add a comment by posted form datas, if the visitor is connected
+     * @param int $idPost
+     */
+    public function post(int $idPost)
     {
         $postManager = new PostManager();
         $userManager = new UserManager();
@@ -42,7 +54,7 @@ class BlogController extends Controller
                         'content' => $fields['comment'],
                         'validated' => 0,
                         'creation_time' => date('Y-m-d H:i:s'),
-                        'idPost' => $id,
+                        'idPost' => $idPost,
                         'idUser' => $this->session->getSession('userId')
                     );
                     $comment = new Comment($datas);
@@ -59,7 +71,7 @@ class BlogController extends Controller
         }
         
         //retrieve concerned post
-        $post = $postManager->get($id);
+        $post = $postManager->get($idPost);
         $this->set('post', $post);
         
         //retrieve user who created post

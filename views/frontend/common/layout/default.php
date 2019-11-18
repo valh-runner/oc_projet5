@@ -10,10 +10,10 @@
         <div>
             <a href="<?= $this->url('home', 'index') ?>">Accueil</a> - 
             <a href="<?= $this->url('blog', 'index') ?>">Blog</a> - 
-            <?php if ($this->session->isSession('connected')): ?>
+            <?php if ($this->session->isSession('connected')) : ?>
             <span>connecté</span> - 
             <a href="<?= $this->url('login', 'logout') ?>">Se déconnecter</a>
-            <?php else: ?>
+            <?php else : ?>
             <a href="<?= $this->url('login', 'index') ?>">Connexion</a> - 
             <a href="<?= $this->url('signup', 'index') ?>">Inscription</a>
             <?php endif; ?>

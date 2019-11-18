@@ -22,12 +22,14 @@
   <body>
   
     <!-- Guide de formatage -->
-    <div style="background-color: #aaa;"><div class="container" style="background-color: #000; color:#eee;"><div class="row">
-      <div class="visible-xs col-lg-12">Smartphone</div>
-      <div class="visible-sm col-lg-12">Tablette</div>
-      <div class="visible-md col-lg-12">Moyen écran</div>
-      <div class="visible-lg col-lg-12">Grand écran</div>
-    </div></div></div>
+    <div style="background-color: #aaa;">
+      <div class="container" style="background-color: #000; color:#eee;"><div class="row">
+        <div class="visible-xs col-lg-12">Smartphone</div>
+        <div class="visible-sm col-lg-12">Tablette</div>
+        <div class="visible-md col-lg-12">Moyen écran</div>
+        <div class="visible-lg col-lg-12">Grand écran</div>
+      </div>
+    </div></div>
     
     <div class="container">
       
@@ -46,11 +48,15 @@
               </div>
               <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-center">
-                  <li><a href="<?= $this->url('home', 'index') ?>"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Accueil</a></li>
-                  <li><a href="<?= $this->url('blog', 'index') ?>"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Blog</a></li>
+                  <li><a href="<?= $this->url('home', 'index') ?>">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Accueil
+                  </a></li>
+                  <li><a href="<?= $this->url('blog', 'index') ?>">
+                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Blog
+                  </a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if ($this->session->isSession('connected')): ?>
+                    <?php if ($this->session->isSession('connected')) : ?>
                     <li>
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         <span id="username"><?= ucfirst($this->session->getSession('username')) ?></span>
@@ -60,7 +66,7 @@
                             <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                         </a>
                     </li>
-                    <?php else: ?>
+                    <?php else : ?>
                     <li><a href="<?= $this->url('signup', 'index') ?>">Inscription</a></li>
                     <li><a href="<?= $this->url('login', 'index') ?>">Connexion</a></li>
                     <?php endif; ?>

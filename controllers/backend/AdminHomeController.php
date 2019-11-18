@@ -1,17 +1,27 @@
 <?php
+/**
+ * Administration functionalities
+ */
 class AdminHomeController extends Controller
 {
+    /**
+     * Retrieve all posts
+     */
     public function index()
     {
         $postManager = new PostManager();
         $this->set('posts', $postManager->getAll());
     }
     
-    public function post($id)
+    /**
+     * Retrieve a post and user who created it
+     * @param int $idPost
+     */
+    public function post(int $idPost)
     {
         //retrieve concerned post
         $postManager = new PostManager();
-        $post = $postManager->get($id);
+        $post = $postManager->get($idPost);
         $this->set('post', $post);
         
         //retrieve user who created post
@@ -20,6 +30,9 @@ class AdminHomeController extends Controller
         $this->set('user', $user);
     }
     
+    /**
+     * Add a post with posted form datas
+     */
     public function addPost()
     {
         $feedback = '';
@@ -66,10 +79,14 @@ class AdminHomeController extends Controller
         $this->set('feedback', $feedback);
     }
     
-    public function updatePost($id)
+    /**
+     * Retrieve a post and update it with posted form datas
+     * @param int $idPost
+     */
+    public function updatePost(int $idPost)
     {
         $postManager = new PostManager();
-        $post = $postManager->get($id); //retrieve concerned post
+        $post = $postManager->get($idPost); //retrieve concerned post
         
         $feedback = '';
         //if form submited
@@ -113,10 +130,14 @@ class AdminHomeController extends Controller
         $this->set('feedback', $feedback);
     }
     
-    public function deletePost($id)
+    /**
+     * Delete a post
+     * @param int $idPost
+     */
+    public function deletePost(int $idPost)
     {
         $postManager = new PostManager();
-        $success = $postManager->del($id);
+        $success = $postManager->del($idPost);
         if (!$success) { //if post not deleted
             $this->set('feedback', 'Une erreur s\'est produite!');
         } else {
@@ -124,7 +145,12 @@ class AdminHomeController extends Controller
         }
     }
     
-    public function validatedComments($idPost)
+    /**
+     * Retrieve validated comments and related users.
+     * Validated comment can be unvalidated.
+     * @param int $idPost
+     */
+    public function validatedComments(int $idPost)
     {
         $commentManager = new CommentManager();
         
@@ -152,7 +178,12 @@ class AdminHomeController extends Controller
         $this->set('usersWhoCommented', $usersWhoCommented);
     }
     
-    public function waitingComments($idPost)
+    /**
+     * Retrieve waiting comments and related users.
+     * Waiting comment can be validated or deleted.
+     * @param int $idPost
+     */
+    public function waitingComments(int $idPost)
     {
         $commentManager = new CommentManager();
         
@@ -182,6 +213,10 @@ class AdminHomeController extends Controller
         $this->set('usersWhoCommented', $usersWhoCommented);
     }
     
+    /**
+     * Retrieve users informations.
+     * Admin right can be granted or revoked.
+     */
     public function accounts()
     {
         $userManager = new UserManager();

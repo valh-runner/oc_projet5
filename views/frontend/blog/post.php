@@ -13,7 +13,7 @@
 
 <div class="col-xs-12 panel">
     <h3>Poster un commentaire</h3>
-    <?php if ($this->session->isSession('connected')): ?>
+    <?php if ($this->session->isSession('connected')) : ?>
         <form method="post" action="/blog/post/<?= $post->idPost(); ?>">
             <div class="form-group">
                 <p><textarea class="form-control" name="comment" placeholder="Votre commentaire"/></textarea></p>
@@ -22,7 +22,7 @@
             <div class="clearfix"></div>
         </form>
         <?= $feedback ?>
-    <?php else: ?>
+    <?php else : ?>
         <p>Connectez-vous pour déposer un commentaire</p>
     <?php endif; ?>
 </div>
@@ -30,14 +30,16 @@
 <hr class="spacer">
 
 <h3>Commentaires</h3>
-<?php if(empty($comments)): ?>
+<?php if (empty($comments)) : ?>
 Pas de commentaires
 <?php endif; ?>
-<?php foreach ($comments as $comment): ?>
+<?php foreach ($comments as $comment) : ?>
 <div class="col-xs-12 comment">
     <p class="col-xs-12"><?= nl2br($comment->content()); ?></p>
     <p class="col-xs-12 text-right comment-source">
-        par <span class="bold"><?= $usersWhoCommented[$comment->idUser()]->username(); ?></span> - le <?= date('d/m/y à H:i', strtotime($post->revisionTime())); ?>
+        par 
+        <span class="bold"><?= $usersWhoCommented[$comment->idUser()]->username(); ?></span> - le 
+        <?= date('d/m/y à H:i', strtotime($post->revisionTime())); ?>
     </p>
 </div>
 <?php endforeach; ?>

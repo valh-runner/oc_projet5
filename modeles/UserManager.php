@@ -1,6 +1,14 @@
 <?php
+/**
+ * Manager of User entities
+ */
 class UserManager extends Manager
 {
+    /**
+     * Add a User in database
+     * @param User $user 
+     * @return bool
+     */
     public function add(User $user)
     {
         $req = self::getDb()->prepare('
@@ -19,10 +27,15 @@ class UserManager extends Manager
         return $req; //boolean success return
     }
     
-    public function get($id)
+    /**
+     * Get a User in database
+     * @param int $idUser 
+     * @return User or bool
+     */
+    public function get(int $idUser)
     {
-        $req = self::getDb()->prepare('SELECT * FROM user WHERE id_user = :id;');
-        $req->bindValue('id', $id);
+        $req = self::getDb()->prepare('SELECT * FROM user WHERE id_user = :id_user;');
+        $req->bindValue('id_user', $idUser);
         $req->execute();
         $row = $req->fetch();
         $req->closeCursor();
@@ -34,7 +47,12 @@ class UserManager extends Manager
         }
     }
     
-    public function getByEmail($email)
+    /**
+     * Get a User in database
+     * @param string $email 
+     * @return User or bool
+     */
+    public function getByEmail(string $email)
     {
         $req = self::getDb()->prepare('SELECT * FROM user WHERE email = :email LIMIT 1;');
         $req->bindValue('email', $email, PDO::PARAM_STR);
@@ -50,6 +68,10 @@ class UserManager extends Manager
         }
     }
     
+    /**
+     * Get all Users
+     * @return array
+     */
     public function getAll()
     {
         $req = self::getDb()->query('SELECT * FROM user;');
@@ -61,7 +83,12 @@ class UserManager extends Manager
         return $users;
     }
     
-    public function getAllWhoDidValidatedCommentForPost($idPost)
+    /**
+     * Get all users who did validated comment for a post
+     * @param int $idPost 
+     * @return array
+     */
+    public function getAllWhoDidValidatedCommentForPost(int $idPost)
     {
         //array of each users who commented the post, indexed by id_user
         $req = self::getDb()->prepare('
@@ -82,7 +109,12 @@ class UserManager extends Manager
         return $usersWhoCommented;
     }
     
-    public function getAllWhoDidWaitingCommentForPost($idPost)
+    /**
+     * Get all users who did waiting comment for a post
+     * @param int $idPost 
+     * @return array
+     */
+    public function getAllWhoDidWaitingCommentForPost(int $idPost)
     {
         //array of each users who commented the post, indexed by id_user
         $req = self::getDb()->prepare('
@@ -103,6 +135,11 @@ class UserManager extends Manager
         return $usersWhoCommented;
     }
     
+    /**
+     * Update a user in database
+     * @param User $user 
+     * @return bool
+     */
     public function update(User $user)
     {
         $req = self::getDb()->prepare('
@@ -123,7 +160,12 @@ class UserManager extends Manager
         return $success; //boolean success return
     }
     
-    public function del($idUser)
+    /**
+     * Delete a Post in database
+     * @param int $idUser 
+     * @return bool
+     */
+    public function del(int $idUser)
     {
         $req = self::getDb()->prepare('DELETE FROM user WHERE id_user = :id_user;');
         $req->bindValue('id_user', $idUser);

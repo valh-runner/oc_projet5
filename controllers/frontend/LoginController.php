@@ -1,6 +1,13 @@
 <?php
+/**
+ * Login functionalities
+ */
 class LoginController extends Controller
 {
+    /**
+     * Default action
+     * Visitor can login by posting form
+     */
     public function index()
     {
         $feedback = '';
@@ -56,6 +63,9 @@ class LoginController extends Controller
         $this->set('feedback', $feedback);
     }
     
+    /**
+     * Logout action
+     */
     public function logout()
     {
         $this->session->unsetSession('connected');

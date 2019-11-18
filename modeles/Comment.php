@@ -1,18 +1,47 @@
 <?php
+/**
+ * Comment entity specification
+ */
 class Comment
 {
+    /**
+     * @var int
+     */
     private $idComment;
+    /**
+     * @var string
+     */
     private $content;
+    /**
+     * @var bool
+     */
     private $validated;
+    /**
+     * @var string
+     */
     private $creationTime;
+    /**
+     * @var int
+     */
     private $idPost;
+    /**
+     * @var int
+     */
     private $idUser;
     
+    /**
+     * Constructor
+     * @param array $datas
+     */
     public function __construct(array $datas)
     {
         $this->hydrate($datas);
     }
     
+    /**
+     * Getters
+     */
+
     public function idComment()
     {
         return $this->idComment;
@@ -38,6 +67,10 @@ class Comment
         return $this->idUser;
     }
     
+    /**
+     * Setters
+     */
+
     public function setIdComment($id)
     {
         $this->idComment = $id;
@@ -63,6 +96,10 @@ class Comment
         $this->idUser = $idUser;
     }
     
+    /**
+     * Fill each attribute of the entity with datas
+     * @param array $datas
+     */
     public function hydrate(array $datas)
     {
         foreach ($datas as $fieldName => $data) {

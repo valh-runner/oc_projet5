@@ -1,6 +1,13 @@
 <?php
+/**
+ * Homepage functionalities
+ */
 class HomeController extends Controller
 {
+    /**
+     * Default action
+     * Visitor can send contact message by posting form
+     */
     public function index()
     {
         $feedback = '';
@@ -28,8 +35,8 @@ class HomeController extends Controller
                     $feedback = 'format E-mail invalide';
                 } else {
                     //send email
-                    $subject = 'contact via IT actuBlog from '.$fields['name'].' '.$fields['firstname'];
-                    $headers = 'From: '.$fields['email'];
+                    $subject = 'contact via IT actuBlog from ' . $fields['name'] . ' ' . $fields['firstname'];
+                    $headers = 'From: ' . $fields['email'];
                     $content = nl2br($fields['message']);
                     mail('admin@1and1.com', $subject, $content, $headers);
                 }

@@ -1,17 +1,41 @@
 <?php
+/**
+ * Core class View
+ */
 class View
 {
+    /**
+     * Specify the layout to use
+     * @var string
+     */
     private $layout = 'only';
-    //protected $elements= array();
+    /**
+     * object session to manage session vars
+     * @var Session
+     */
     public $session;
-    
-    public function __construct($page, $view, $vars = array(), $noView = false)
+
+    /**
+     * Constructor
+     * @param string $page 
+     * @param string $view 
+     * @param array $vars 
+     * @param bool $noView 
+     */
+    public function __construct(string $page, string $view, array $vars, bool $noView = false)
     {
         $this->session = new Session();
         $this->render($page, $view, $vars, $noView);
     }
     
-    public function render($page, $view, $vars = array(), $noView = false)
+    /**
+     * Render the display of page
+     * @param string $page 
+     * @param string $view 
+     * @param array $vars 
+     * @param bool $noView
+     */
+    public function render(string $page, string $view, array $vars, bool $noView = false)
     {
         
         //if no-view mode
@@ -28,9 +52,9 @@ class View
             }
             
             //if view exists
-            if (is_file($pathBase.$page.'/'.$view.'.php')) {
+            if (is_file($pathBase . $page . '/' . $view . '.php')) {
                 ob_start();
-                include ROOT.$pathBase.$page.'/'.$view.'.php';
+                include ROOT . $pathBase . $page . '/' . $view . '.php';
                 $content_for_layout = ob_get_clean();
             } else {
                 $content_for_layout = 'NO VIEW';
@@ -38,20 +62,27 @@ class View
         }
         
         // Construction of response
-        if(isset($httpHeader)){
-            if($httpHeader == '404'){
+        if (isset($httpHeader)) {
+            if ($httpHeader == '404') {
                 header('HTTP/1.1 404 Not Found'); //set header 404 in response
             }
         }
-        include ROOT.'views/frontend/common/layout/'.$this->layout.'.php';
+        include ROOT . 'views/frontend/common/layout/' . $this->layout . '.php';
     }
     
-    public function url($page, $action, $params = array())
+    /**
+     * Return an url path from page, action and params parameters
+     * @param string $page 
+     * @param string $action 
+     * @param array $params 
+     * @return string
+     */
+    public function url(string $page, string $action, array $params = array())
     {
         if (empty($params)) {
-            return URLROOT.$page.'/'.$action;
+            return URLROOT . $page . '/' . $action;
         } else {
-            return URLROOT.$page.'/'.$action.'/'.implode('/', $params);
+            return URLROOT . $page . '/' . $action . '/' . implode('/', $params);
         }
     }
 }

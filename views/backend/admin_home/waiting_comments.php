@@ -5,7 +5,7 @@
 <a href='<?= $this->url('admin_home', 'index'); ?>'>Retour</a>
 <hr>
 
-<?php foreach ($comments as $comment): ?>
+<?php foreach ($comments as $comment) : ?>
 <div class="col-xs-12 comment">
     <p class="col-xs-12"><?= nl2br($comment->content()); ?></p>
     <p class="col-xs-12 text-right comment-source">

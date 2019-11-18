@@ -14,5 +14,5 @@
     </div>
     <button class="btn pull-right">Se connecter</button>
     <div class="clearfix"></div>
+    <?= $feedback ?>
 </form>
-<?= $feedback ?>

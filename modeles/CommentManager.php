@@ -1,6 +1,14 @@
 <?php
+/**
+ * Manager of Comment entities
+ */
 class CommentManager extends Manager
 {
+    /**
+     * Add a Comment in database
+     * @param Comment $comment 
+     * @return bool
+     */
     public function add(Comment $comment)
     {
         $req = self::getDb()->prepare('
@@ -21,6 +29,11 @@ class CommentManager extends Manager
         return $success; //boolean success return
     }
     
+    /**
+     * Update a Comment in database
+     * @param Comment $comment 
+     * @return bool
+     */
     public function update(Comment $comment)
     {
         $req = self::getDb()->prepare('
@@ -41,18 +54,28 @@ class CommentManager extends Manager
         return $success; //boolean success return
     }
     
-    public function del($id)
+    /**
+     * Delete a Comment in database
+     * @param int $id 
+     * @return bool
+     */
+    public function del(int $idComment)
     {
         $req = self::getDb()->prepare('DELETE FROM comment WHERE id_comment = :id_comment;');
-        $req->bindValue('id_comment', $id);
+        $req->bindValue('id_comment', $idComment);
         $success = $req->execute();
         return $success; //boolean success return
     }
     
-    public function get($id)
+    /**
+     * Get a Comment from database
+     * @param int $id 
+     * @return Comment or bool
+     */
+    public function get(int $idComment)
     {
         $req = self::getDb()->prepare('SELECT * FROM comment WHERE id_comment = :id;');
-        $req->bindValue('id', $id);
+        $req->bindValue('id', $idComment);
         $req->execute();
         $row = $req->fetch();
         $req->closeCursor();
@@ -64,7 +87,12 @@ class CommentManager extends Manager
         }
     }
     
-    public function getAllValidatedForPost($idPost)
+    /**
+     * Get all validated comments of a post
+     * @param int $idPost 
+     * @return array
+     */
+    public function getAllValidatedForPost(int $idPost)
     {
         $req = self::getDb()->prepare('
             SELECT * FROM comment 
@@ -82,7 +110,12 @@ class CommentManager extends Manager
         return $comments;
     }
     
-    public function getAllWaitingForPost($idPost)
+    /**
+     * Get all waiting comments of a post
+     * @param int $idPost 
+     * @return array
+     */
+    public function getAllWaitingForPost(int $idPost)
     {
         $req = self::getDb()->prepare('
             SELECT * FROM comment 

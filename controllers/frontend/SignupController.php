@@ -1,6 +1,13 @@
 <?php
+/**
+ * Signup functionalities
+ */
 class SignupController extends Controller
 {
+    /**
+     * Default action
+     * Visitor can signup by posting form
+     */
     public function index()
     {
         $feedback = '';
@@ -52,6 +59,9 @@ class SignupController extends Controller
         $this->set('feedback', $feedback);
     }
     
+    /**
+     * Confirm signup done
+     */
     public function confirm()
     {
     }

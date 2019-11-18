@@ -1,68 +1,105 @@
 <?php
+/**
+ * User entity specification
+ */
 class User
 {
-    private $_idUser;
-    private $_username;
-    private $_email;
-    private $_passwordHash;
-    private $_registerDate;
-    private $_adminGranted;
+    /**
+     * @var int
+     */
+    private $idUser;
+    /**
+     * @var string
+     */
+    private $username;
+    /**
+     * @var string
+     */
+    private $email;
+    /**
+     * @var string
+     */
+    private $passwordHash;
+    /**
+     * @var string
+     */
+    private $registerDate;
+    /**
+     * @var bool
+     */
+    private $adminGranted;
     
+    /**
+     * Constructor
+     * @param array $datas
+     */
     public function __construct(array $datas)
     {
         $this->hydrate($datas);
     }
     
+    /**
+     * Getters
+     */
+
     public function idUser()
     {
-        return $this->_idUser;
+        return $this->idUser;
     }
     public function username()
     {
-        return $this->_username;
+        return $this->username;
     }
     public function email()
     {
-        return $this->_email;
+        return $this->email;
     }
     public function passwordHash()
     {
-        return $this->_passwordHash;
+        return $this->passwordHash;
     }
     public function registerDate()
     {
-        return $this->_registerDate;
+        return $this->registerDate;
     }
     public function adminGranted()
     {
-        return $this->_adminGranted;
+        return $this->adminGranted;
     }
+
+    /**
+     * Setters
+     */
     
     public function setIdUser($id)
     {
-        $this->_idUser = $id;
+        $this->idUser = $id;
     }
     public function setUsername($username)
     {
-        $this->_username = $username;
+        $this->username = $username;
     }
     public function setEmail($email)
     {
-        $this->_email = $email;
+        $this->email = $email;
     }
     public function setPasswordHash($passwordHash)
     {
-        $this->_passwordHash = $passwordHash;
+        $this->passwordHash = $passwordHash;
     }
     public function setRegisterDate($registerDate)
     {
-        $this->_registerDate = $registerDate;
+        $this->registerDate = $registerDate;
     }
     public function setAdminGranted($adminGranted)
     {
-        $this->_adminGranted = $adminGranted;
+        $this->adminGranted = $adminGranted;
     }
     
+    /**
+     * Fill each attribute of the entity with datas
+     * @param array $datas
+     */
     public function hydrate(array $datas)
     {
         foreach ($datas as $fieldName => $data) {

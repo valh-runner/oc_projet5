@@ -20,6 +20,5 @@
     <button class="btn pull-right">S'inscrire</button>
     <div class="clearfix"></div>
     <div class="red">* Champs obligatoires</div>
+    <?= $feedback ?>
 </form>
-
-<?= $feedback ?>

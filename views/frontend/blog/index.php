@@ -2,7 +2,7 @@
 
 <h2 class="col-xs-12 text-center" id="title">Liste des articles</h2>
 
-<?php foreach ($posts as $post): ?>
+<?php foreach ($posts as $post) : ?>
 <div class="col-xs-12 post">
     <div class="col-xs-12 text-right">Mis à jour le <?= date('d/m/Y', strtotime($post->revisionTime())); ?></div>
     <div class="col-xs-12"><h3><?= $post->title(); ?></h3></div>
