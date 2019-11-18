@@ -6,10 +6,13 @@
 <a href='<?= $this->url('admin_home', 'update_post', array($post->idPost())); ?>'>Modifier l'article</a> - 
 <a href='<?= $this->url('admin_home', 'delete_post', array($post->idPost())); ?>'>Supprimer l'article</a>
 
+<p class="text-right">Créé le <?= date('d/m/y à H:i', strtotime($post->creationTime())); ?></p>
+<p class="text-right">Mis à jour le <?= date('d/m/Y à H:i', strtotime($post->revisionTime())); ?></p>
+<p class="text-right">Auteur : <?= $user->username(); ?></p>
+
+<hr class="spacer">
+
 <h3><?= $post->title(); ?></h3>
-<p>Châpo: <?= $post->headnote(); ?></p>
-<p>Contenu: <?= $post->content(); ?></p>
+<p><?= $post->headnote(); ?></p>
 <hr class="spacer">
-<p>Auteur: <?= $user->username(); ?></p>
-<hr class="spacer">
-<p>Date dernière mise à jour: <?= date('d/m/Y', strtotime($post->revisionTime())); ?></p>
+<p><?= $post->content(); ?></p>

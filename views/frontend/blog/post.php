@@ -2,8 +2,8 @@
 
 <a href='<?= $this->url('blog', 'index'); ?>'>Retour</a>
 
-<p class="text-right">Créé le <?= date('d/m/y', strtotime($post->revisionTime())); ?></p>
-<p class="text-right">Mis à jour le <?= date('d/m/y', strtotime($post->revisionTime())); ?></p>
+<p class="text-right">Créé le <?= date('d/m/y à H:i', strtotime($post->revisionTime())); ?></p>
+<p class="text-right">Mis à jour le <?= date('d/m/y à H:i', strtotime($post->revisionTime())); ?></p>
 <p class="text-right">Auteur : <?= $user->username(); ?></p>
 <h2 class="col-xs-12 text-center" id="title"><?= $post->title(); ?></h2>
 <h3><?= $post->headnote(); ?></h3>
@@ -39,7 +39,7 @@ Pas de commentaires
     <p class="col-xs-12 text-right comment-source">
         par 
         <span class="bold"><?= $usersWhoCommented[$comment->idUser()]->username(); ?></span> - le 
-        <?= date('d/m/y à H:i', strtotime($post->revisionTime())); ?>
+        <?= date('d/m/y à H:i', strtotime($comment->creationTime())); ?>
     </p>
 </div>
 <?php endforeach; ?>
